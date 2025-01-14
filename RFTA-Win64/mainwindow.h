@@ -26,7 +26,8 @@ public:
 
 private slots:
     void on_chooseFileButton_clicked();
-    void uploadFile(const QString &filePath);
+    void uploadFile(const QString &filePath, QUrl &url);
+    void updateProgress(qint64 bytesSent, qint64 bytesTotal);
 
 private:
     Ui::MainWindow *ui;

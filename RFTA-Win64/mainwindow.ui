@@ -17,14 +17,37 @@
    <widget class="QPushButton" name="chooseFileButton">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>100</y>
+      <x>30</x>
+      <y>60</y>
       <width>200</width>
-      <height>50</height>
+      <height>100</height>
      </rect>
     </property>
     <property name="text">
      <string>Upload File</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="fileLoadingBar">
+    <property name="geometry">
+     <rect>
+      <x>35</x>
+      <y>160</y>
+      <width>200</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>200</width>
+      <height>25</height>
+     </rect>
     </property>
    </widget>
   </widget>

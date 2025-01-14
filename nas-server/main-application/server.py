@@ -31,4 +31,4 @@ def upload_file():
     return jsonify({"message": "File uploaded successfully", "file_path": file_path}), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)  # Use SSL for HTTPS
+    app.run(host='192.168.0.14', port=7777)  # Use SSL for HTTPS
