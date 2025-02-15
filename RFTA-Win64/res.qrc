@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fonts/Inter-VariableFont_opsz,wght.ttf</file>
+        <file>fonts/Inter_18pt-SemiBold.ttf</file>
+    </qresource>
+</RCC>

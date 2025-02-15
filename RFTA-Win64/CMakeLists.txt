@@ -11,6 +11,7 @@ qt_add_executable(RFTA-Win64
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    res.qrc
 )
 
 target_link_libraries(RFTA-Win64
