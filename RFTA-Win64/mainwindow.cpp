@@ -14,3 +14,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void LoginFunc() {
+    qDebug() << "LoginFunc";
+}
+
+void MainWindow::on_LoginButton_clicked()
+{
+    LoginFunc();
+}
+
+
+void MainWindow::on_PasswordInput_returnPressed()
+{
+    LoginFunc();
+}
+
