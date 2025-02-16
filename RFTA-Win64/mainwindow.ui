@@ -57,7 +57,7 @@ border-radius: 10px;
 font-style: normal;
 font-weight: 600;
 font-size: 16px;
-line-height: 19px;
+
 
 color: #FFFFFF;
 
@@ -77,6 +77,18 @@ color: #FFFFFF;
       <height>80</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 19px;
+
+
+color: #FFFFFF;
+
+</string>
+    </property>
     <widget class="QLabel" name="UsernameLabel">
      <property name="geometry">
       <rect>
@@ -87,8 +99,7 @@ color: #FFFFFF;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font-family: 'Inter';
-font-style: normal;
+      <string notr="true">font-style: normal;
 font-weight: 600;
 font-size: 16px;
 line-height: 19px;
@@ -113,7 +124,6 @@ color: #FFFFFF;
      <property name="styleSheet">
       <string notr="true">background: #9B9B9B;
 border-radius: 10px;
-font-family: 'Inter';
 font-style: normal;
 font-weight: 600;
 font-size: 16px;
@@ -124,6 +134,9 @@ color: #323232;</string>
     </widget>
    </widget>
    <widget class="QWidget" name="BuildInfoWidget" native="true">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>510</x>
@@ -133,16 +146,22 @@ color: #323232;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-family: url(:/fonts/Inter-VariableFont_opsz,wght.ttf);
+     <string notr="true">font-family: 'Inter';
 font-style: normal;
 font-weight: 600;
+font-size: 16px;
+line-height: 19px;
+text-align: right;
 
 color: #FFFFFF;
-opacity: 0.5;
 
+opacity: 0.5;
 </string>
     </property>
     <widget class="QLabel" name="BuildInfo">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -153,6 +172,9 @@ opacity: 0.5;
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Build: 25.02/01&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="RepoInfo">
@@ -166,6 +188,15 @@ opacity: 0.5;
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;github.com/rotat1ck/RFTA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
