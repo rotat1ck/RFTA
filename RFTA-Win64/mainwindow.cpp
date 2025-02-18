@@ -1,31 +1,41 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+    login = new Login(this);
+    dashboard = new Dashboard(this);
 
+    layout = new QStackedLayout;
+    layout->addWidget(login);
+    layout->addWidget(dashboard);
+
+    layout->setCurrentWidget(login);
+
+    connect(login, &Login::SUserData, dashboard, &Dashboard::receiveUserData);
+    connect(login, &Login::SUserData, this, &MainWindow::showDashboard);
+
+    connect(dashboard, &Dashboard::SChangeForm, this, &MainWindow::changeForm);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete login;
+    delete dashboard;
+    delete layout;
 }
 
-void LoginFunc() {
+void MainWindow::tryLogin() {
     qDebug() << "LoginFunc";
 }
 
-void MainWindow::on_LoginButton_clicked()
-{
-    LoginFunc();
+void MainWindow::changeForm(int formId) {
+    switch(formId) {
+    case 0: {
+        layout->setCurrentWidget(login);
+    }
+    }
 }
 
-
-void MainWindow::on_PasswordInput_returnPressed()
-{
-    LoginFunc();
+void MainWindow::showDashboard(QString username) {
+    layout->setCurrentWidget(dashboard);
 }
 

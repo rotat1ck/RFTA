@@ -16,7 +16,15 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="centralwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>750</width>
+     <height>500</height>
+    </rect>
+   </property>
    <property name="styleSheet">
     <string notr="true">background: #514D4D;
 </string>

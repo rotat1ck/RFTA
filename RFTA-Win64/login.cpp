@@ -1,14 +1,21 @@
 #include "login.h"
 #include "ui_login.h"
 
-login::login(QWidget *parent) :
+Login::Login(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::login)
+    ui(new Ui::Login)
 {
     ui->setupUi(this);
 }
 
-login::~login()
+Login::~Login()
 {
     delete ui;
 }
+
+void Login::on_LoginButton_clicked()
+{
+    QString username = ui->UsernameInput->text();
+    emit SUserData(username, 4);
+}
+

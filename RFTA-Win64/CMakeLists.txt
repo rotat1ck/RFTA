@@ -12,7 +12,7 @@ qt_add_executable(RFTA-Win64
     main.cpp
     mainwindow.cpp
     mainwindow.h
-    mainwindow.ui
+
     ${RESOURCE_FILES}
     login.h login.cpp login.ui
     dashboard.h dashboard.cpp dashboard.ui

@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QWidget>
+#include <QStackedLayout>
+
+#include "login.h"
+#include "dashboard.h"
 
 
 namespace Ui {
@@ -18,11 +23,17 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_LoginButton_clicked();
+    void tryLogin();
 
-    void on_PasswordInput_returnPressed();
+    void changeForm(int formId);
+
+    void showDashboard(QString username);
+
 
 private:
     Ui::MainWindow *ui;
+    Login* login;
+    Dashboard* dashboard;
+    QStackedLayout* layout;
 };
 #endif // MAINWINDOW_H

@@ -4,19 +4,28 @@
 #include <QWidget>
 
 namespace Ui {
-class dashboard;
+class Dashboard;
 }
 
-class dashboard : public QWidget
+class Dashboard : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit dashboard(QWidget *parent = nullptr);
-    ~dashboard();
+    explicit Dashboard(QWidget *parent = nullptr);
+    void receiveUserData(QString username, int rank);
+    ~Dashboard();
+
+signals:
+    void SChangeForm(int formId);
+
+private slots:
+    void on_pushButton_clicked();
+
+
 
 private:
-    Ui::dashboard *ui;
+    Ui::Dashboard *ui;
 };
 
 #endif // DASHBOARD_H
