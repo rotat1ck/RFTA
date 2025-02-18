@@ -13,9 +13,17 @@ Login::~Login()
     delete ui;
 }
 
-void Login::on_LoginButton_clicked()
-{
+void Login::tryLogin() {
     QString username = ui->UsernameInput->text();
     emit SUserData(username, 4);
+}
+
+void Login::on_LoginButton_clicked() {
+    tryLogin();
+}
+
+
+void Login::on_PasswordInput_returnPressed() {
+    tryLogin();
 }
 

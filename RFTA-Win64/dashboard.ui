@@ -22,31 +22,134 @@
      <height>500</height>
     </rect>
    </property>
-   <widget class="QPushButton" name="pushButton">
+   <property name="styleSheet">
+    <string notr="true">background: #514D4D;</string>
+   </property>
+   <widget class="QWidget" name="MainPageBar" native="true">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>210</y>
-      <width>151</width>
-      <height>41</height>
+      <x>10</x>
+      <y>10</y>
+      <width>730</width>
+      <height>50</height>
      </rect>
     </property>
-    <property name="text">
-     <string>to login</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>80</y>
-      <width>161</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
+    <widget class="QWidget" name="ProfileInfoWidget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>250</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #707070;
+border-radius: 25px;
+
+font-family: 'Inter SemiBold';
+font-size: 18px;
+
+color: #FFFFFF;
+
+</string>
+     </property>
+     <widget class="QLabel" name="NameBar">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>190</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Privileges">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>10</y>
+        <width>30</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ExitButtonHolder" native="true">
+     <property name="geometry">
+      <rect>
+       <x>580</x>
+       <y>0</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #707070;
+border-radius: 25px;
+</string>
+     </property>
+     <widget class="QPushButton" name="ExitButton1">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>100</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: transparent; 
+border: 0px;
+font-family: 'Inter SemiBold';
+font-size: 18px;
+
+color: #FFFFFF;
+</string>
+      </property>
+      <property name="text">
+       <string>Logout</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ExitButton2">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>0</y>
+        <width>50</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: #D9D9D9;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 25px;
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>

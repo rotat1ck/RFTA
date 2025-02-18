@@ -23,10 +23,6 @@ MainWindow::~MainWindow()
     delete layout;
 }
 
-void MainWindow::tryLogin() {
-    qDebug() << "LoginFunc";
-}
-
 void MainWindow::changeForm(int formId) {
     switch(formId) {
     case 0: {

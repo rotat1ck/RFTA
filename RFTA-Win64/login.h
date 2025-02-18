@@ -19,7 +19,11 @@ signals:
     void SUserData(QString username, int rank);
 
 private slots:
+    void tryLogin();
+
     void on_LoginButton_clicked();
+
+    void on_PasswordInput_returnPressed();
 
 private:
     Ui::Login *ui;

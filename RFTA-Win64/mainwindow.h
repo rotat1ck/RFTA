@@ -23,8 +23,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void tryLogin();
-
     void changeForm(int formId);
 
     void showDashboard(QString username);

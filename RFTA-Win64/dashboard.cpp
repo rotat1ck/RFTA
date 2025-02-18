@@ -15,12 +15,18 @@ Dashboard::~Dashboard()
     delete ui;
 }
 
-void Dashboard::on_pushButton_clicked()
-{
+void Dashboard::receiveUserData(QString username, int rank) {
+    QString privileges = QString::number(rank);
+    ui->NameBar->setText(username);
+    ui->Privileges->setText("#" + privileges);
+}
+
+void Dashboard::on_ExitButton1_clicked() {
     emit SChangeForm(0);
 }
 
-void Dashboard::receiveUserData(QString username, int rank) {
-    QString priviliges = QString::number(rank);
-    ui->label->setText(username + priviliges);
+
+void Dashboard::on_ExitButton2_clicked() {
+    emit SChangeForm(0);
 }
+

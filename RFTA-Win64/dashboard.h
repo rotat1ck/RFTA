@@ -20,9 +20,13 @@ signals:
     void SChangeForm(int formId);
 
 private slots:
-    void on_pushButton_clicked();
 
 
+
+
+    void on_ExitButton1_clicked();
+
+    void on_ExitButton2_clicked();
 
 private:
     Ui::Dashboard *ui;
