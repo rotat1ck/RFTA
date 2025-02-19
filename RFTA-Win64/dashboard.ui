@@ -64,8 +64,7 @@ color: #FFFFFF;
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -147,6 +146,140 @@ border-radius: 25px;
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="MainPageField" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>730</width>
+      <height>420</height>
+     </rect>
+    </property>
+    <widget class="QWidget" name="BranchSection" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>130</width>
+       <height>420</height>
+      </rect>
+     </property>
+     <widget class="QLabel" name="BranchesLabel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>110</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-family: 'Inter SemiBold';
+font-size: 18px;
+
+color: #FFFFFF;
+
+</string>
+      </property>
+      <property name="text">
+       <string>Branches:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="Branches" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>30</y>
+        <width>130</width>
+        <height>270</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: #373333;
+border-radius: 10px;
+</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="StartButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>310</y>
+        <width>60</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgba(204, 218, 185, 128);
+border-radius: 15px;
+
+font-family: 'Inter SemiBold';
+font-size: 18px;
+line-height: 22px;
+
+color: rgba(50, 50, 50, 128);
+
+</string>
+      </property>
+      <property name="text">
+       <string>Start</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="StopButton">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>310</y>
+        <width>60</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgba(255, 217, 217, 128);
+border-radius: 15px;
+
+font-family: 'Inter SemiBold';
+font-size: 18px;
+line-height: 22px;
+
+color: rgba(50, 50, 50, 128);
+
+</string>
+      </property>
+      <property name="text">
+       <string>Stop</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="EditServerButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>350</y>
+        <width>130</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgba(217, 217, 217, 128);
+border-radius: 15px;
+
+font-family: 'Inter SemiBold';
+font-size: 18px;
+line-height: 22px;
+
+color: rgba(50, 50, 50, 128);
+
+</string>
+      </property>
+      <property name="text">
+       <string>Edit server</string>
       </property>
      </widget>
     </widget>
