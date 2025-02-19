@@ -4,10 +4,9 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QStackedLayout>
-
+#include <QTimer>
 #include "login.h"
-#include "dashboard.h"
-
+#include "loading.h"
 
 class MainWindow : public QMainWindow
 {
@@ -17,15 +16,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    void changeForm(int formId);
-
-    void showDashboard(QString username);
-
-
 private:
     Login* login;
-    Dashboard* dashboard;
+    Loading* loadScreen;
     QStackedLayout* layout;
+
 };
 #endif // MAINWINDOW_H
