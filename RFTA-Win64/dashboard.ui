@@ -140,7 +140,6 @@ color: #FFFFFF;
       </property>
       <property name="styleSheet">
        <string notr="true">background: #D9D9D9;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 25px;
 </string>
       </property>
@@ -208,6 +207,9 @@ border-radius: 10px;
       </property>
      </widget>
      <widget class="QPushButton" name="StartButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -215,6 +217,9 @@ border-radius: 10px;
         <width>60</width>
         <height>30</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">background: rgba(204, 218, 185, 128);
@@ -233,6 +238,9 @@ color: rgba(50, 50, 50, 128);
       </property>
      </widget>
      <widget class="QPushButton" name="StopButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -240,6 +248,9 @@ color: rgba(50, 50, 50, 128);
         <width>60</width>
         <height>30</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">background: rgba(255, 217, 217, 128);
@@ -258,6 +269,9 @@ color: rgba(50, 50, 50, 128);
       </property>
      </widget>
      <widget class="QPushButton" name="EditServerButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -265,6 +279,9 @@ color: rgba(50, 50, 50, 128);
         <width>130</width>
         <height>30</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">background: rgba(217, 217, 217, 128);

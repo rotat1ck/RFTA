@@ -16,8 +16,8 @@ qt_add_executable(RFTA-Win64
     ${RESOURCE_FILES}
     login.h login.cpp login.ui
     dashboard.h dashboard.cpp dashboard.ui
-
-
+    UI-Dashboard.cpp
+    UI-DashboardStyle.h
 
 )
 

@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     layout->setCurrentWidget(login);
 
-    connect(login, &Login::SUserData, dashboard, &Dashboard::receiveUserData);
-    connect(login, &Login::SUserData, this, &MainWindow::showDashboard);
+    connect(login, &Login::SInitDashboard, dashboard, &Dashboard::receiveUserData);
+    connect(login, &Login::SInitDashboard, this, &MainWindow::showDashboard);
 
     connect(dashboard, &Dashboard::SChangeForm, this, &MainWindow::changeForm);
 }

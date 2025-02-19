@@ -13,20 +13,24 @@ class Dashboard : public QWidget
 
 public:
     explicit Dashboard(QWidget *parent = nullptr);
-    void receiveUserData(QString username, int rank);
+    void receiveUserData(QString username, int rank, bool isServerActive);
     ~Dashboard();
 
 signals:
     void SChangeForm(int formId);
 
 private slots:
-
-
-
+    void initButtonUI(int privileges, bool isServerActive);
 
     void on_ExitButton1_clicked();
 
     void on_ExitButton2_clicked();
+
+    void on_StartButton_clicked();
+
+    void on_StopButton_clicked();
+
+    void on_EditServerButton_clicked();
 
 private:
     Ui::Dashboard *ui;

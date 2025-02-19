@@ -15,7 +15,7 @@ Login::~Login()
 
 void Login::tryLogin() {
     QString username = ui->UsernameInput->text();
-    emit SUserData(username, 4);
+    emit SInitDashboard(username, 3, false);
 }
 
 void Login::on_LoginButton_clicked() {

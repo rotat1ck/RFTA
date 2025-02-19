@@ -16,7 +16,7 @@ public:
     ~Login();
 
 signals:
-    void SUserData(QString username, int rank);
+    void SInitDashboard(QString username, int rank, bool isServerActive);
 
 private slots:
     void tryLogin();

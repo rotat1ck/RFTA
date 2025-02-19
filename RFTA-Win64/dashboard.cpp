@@ -15,18 +15,10 @@ Dashboard::~Dashboard()
     delete ui;
 }
 
-void Dashboard::receiveUserData(QString username, int rank) {
+void Dashboard::receiveUserData(QString username, int rank, bool isServerActive) {
     QString privileges = QString::number(rank);
     ui->NameBar->setText(username);
     ui->Privileges->setText("#" + privileges);
-}
-
-void Dashboard::on_ExitButton1_clicked() {
-    emit SChangeForm(0);
-}
-
-
-void Dashboard::on_ExitButton2_clicked() {
-    emit SChangeForm(0);
+    initButtonUI(rank, isServerActive);
 }
 
