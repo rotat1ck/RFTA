@@ -2,6 +2,7 @@
 #define LOADINGSCREEN_H
 
 #include <QWidget>
+#include <QMovie>
 
 namespace Ui {
 class LoadingScreen;

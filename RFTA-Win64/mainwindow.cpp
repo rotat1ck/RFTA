@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(login, &Login::S_InitDashboard, dashboard, &Dashboard::receiveUserData);
     connect(login, &Login::S_InitDashboard, this, &MainWindow::showDashboard);
 
+    // Widgets changhes (pages changes)
     connect(dashboard, &Dashboard::S_ChangeForm, this, &MainWindow::changeForm);
 }
 
@@ -34,9 +35,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::changeForm(int formId) {
     switch(formId) {
-    case 0: {
-        layout->setCurrentWidget(login);
-    }
+        case 0: {
+            layout->setCurrentWidget(login);
+            break;
+        }
     }
     reInitializeLoadingScreen();
 }

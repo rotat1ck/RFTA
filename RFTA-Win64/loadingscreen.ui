@@ -16,10 +16,10 @@
   <widget class="QWidget" name="loadScreen" native="true">
    <property name="geometry">
     <rect>
-     <x>275</x>
-     <y>175</y>
-     <width>200</width>
-     <height>150</height>
+     <x>250</x>
+     <y>150</y>
+     <width>250</width>
+     <height>200</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -27,21 +27,20 @@
 border-radius: 20px;
 </string>
    </property>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="gifLabel">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>60</y>
-      <width>71</width>
-      <height>31</height>
+      <x>75</x>
+      <y>50</y>
+      <width>100</width>
+      <height>100</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-family: &quot;Inter SemiBold&quot;;
-font-size: 18px;</string>
+     <string notr="true"/>
     </property>
     <property name="text">
-     <string>Loading</string>
+     <string/>
     </property>
    </widget>
   </widget>

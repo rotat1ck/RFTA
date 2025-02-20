@@ -6,9 +6,12 @@ LoadingScreen::LoadingScreen(QWidget *parent) :
     ui(new Ui::LoadingScreen)
 {
     ui->setupUi(this);
+    QMovie* gif = new QMovie(":/img/LoadWheel.gif");
+    ui->gifLabel->setMovie(gif);
+    ui->gifLabel->setScaledContents(true);
+    gif->start();
 }
 
-LoadingScreen::~LoadingScreen()
-{
+LoadingScreen::~LoadingScreen() {
     delete ui;
 }

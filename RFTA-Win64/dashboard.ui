@@ -300,6 +300,120 @@ color: rgba(50, 50, 50, 128);
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="ConsoleSection" native="true">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>0</y>
+       <width>590</width>
+       <height>420</height>
+      </rect>
+     </property>
+     <widget class="QLabel" name="ConsoleLabel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>120</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-family: 'Inter SemiBold';
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+
+</string>
+      </property>
+      <property name="text">
+       <string>Live console:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="BuilInfoLabel">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>0</y>
+        <width>150</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-family: 'Inter SemiBold';
+font-size: 18px;
+line-height: 22px;
+
+color: rgba(255, 255, 255, 128);
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>Build: 25.03/01</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="Console" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>30</y>
+        <width>590</width>
+        <height>390</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: #2D2A2A;
+border-radius: 10px;
+</string>
+      </property>
+      <widget class="QWidget" name="horizontalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>349</y>
+         <width>571</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="ConsoleUsername">
+          <property name="styleSheet">
+           <string notr="true">font-family: 'Inter SemiBold';
+font-size: 15px;
+line-height: 17px;
+
+color: #CDCDCD;
+
+</string>
+          </property>
+          <property name="text">
+           <string>l</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ConsoleInput">
+          <property name="styleSheet">
+           <string notr="true">font-family: 'Inter SemiBold';
+font-size: 15px;
+line-height: 17px;
+
+color: #CDCDCD;
+
+</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>

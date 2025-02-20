@@ -14,15 +14,13 @@ Login::~Login()
 }
 
 void Login::tryLogin() {
-    // put api request here
     emit S_ShowLoadingScreen(this);
+    // TODO: put api request here
     QTimer::singleShot(2000, this, [this]() {
         S_HideLoadingScreen(this);
         QString username = ui->UsernameInput->text();
         emit S_InitDashboard(username, 3, false);
     });
-
-
 }
 
 void Login::on_LoginButton_clicked() {
