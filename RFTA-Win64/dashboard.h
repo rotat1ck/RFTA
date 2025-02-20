@@ -17,7 +17,11 @@ public:
     ~Dashboard();
 
 signals:
-    void SChangeForm(int formId);
+    void S_ChangeForm(int formId);
+
+    void S_ShowLoadingScreen(QWidget* caller);
+
+    void S_HideLoadingScreen(QWidget* caller);
 
 private slots:
     void initButtonUI(int privileges, bool isServerActive);

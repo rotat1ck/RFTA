@@ -22,11 +22,13 @@ public:
 private slots:
     void changeForm(int formId);
 
-    void showDashboard(QString username);
+    void showDashboard();
 
-    void showLoadScreen();
+    void reInitializeLoadingScreen();
 
-    void hideLoadScreen();
+    void showLoadScreen(QWidget* caller);
+
+    void hideLoadScreen(QWidget* caller);
 
 private:
     Login* login;

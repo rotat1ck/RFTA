@@ -15,8 +15,14 @@ Login::~Login()
 
 void Login::tryLogin() {
     // put api request here
-    QString username = ui->UsernameInput->text();
-    emit S_InitDashboard(username, 3, false);
+    emit S_ShowLoadingScreen(this);
+    QTimer::singleShot(2000, this, [this]() {
+        S_HideLoadingScreen(this);
+        QString username = ui->UsernameInput->text();
+        emit S_InitDashboard(username, 3, false);
+    });
+
+
 }
 
 void Login::on_LoginButton_clicked() {

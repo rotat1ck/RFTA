@@ -12,10 +12,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     loadScreen = new LoadingScreen(this);
     loadScreen->hide();
 
+    // Login page send request to API
+    // Show loading screen
+    connect(login, &Login::S_ShowLoadingScreen, this, &MainWindow::showLoadScreen);
+    connect(login, &Login::S_HideLoadingScreen, this, &MainWindow::hideLoadScreen);
+
+    // Login successful, redirect to dashboard
     connect(login, &Login::S_InitDashboard, dashboard, &Dashboard::receiveUserData);
     connect(login, &Login::S_InitDashboard, this, &MainWindow::showDashboard);
 
-    connect(dashboard, &Dashboard::SChangeForm, this, &MainWindow::changeForm);
+    connect(dashboard, &Dashboard::S_ChangeForm, this, &MainWindow::changeForm);
 }
 
 MainWindow::~MainWindow()
@@ -32,22 +38,25 @@ void MainWindow::changeForm(int formId) {
         layout->setCurrentWidget(login);
     }
     }
+    reInitializeLoadingScreen();
 }
 
-void MainWindow::showDashboard(QString username) {
+void MainWindow::showDashboard() {
     layout->setCurrentWidget(dashboard);
-    loadScreen->show();
 }
 
-void MainWindow::showLoadScreen() {
-    loadScreen->show();
-    login->setEnabled(false);
-    QTimer::singleShot(3000, this, [this]() {
-            loadScreen->hide();
-            login->setEnabled(true);
-    });
+void MainWindow::reInitializeLoadingScreen() {
+    delete loadScreen;
+    loadScreen = new LoadingScreen(this);
+    loadScreen->hide();
 }
 
-void MainWindow::hideLoadScreen() {
+void MainWindow::showLoadScreen(QWidget* caller) {
+    loadScreen->show();
+    caller->setEnabled(false);
+}
 
+void MainWindow::hideLoadScreen(QWidget* caller) {
+    loadScreen->hide();
+    caller->setEnabled(true);
 }

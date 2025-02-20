@@ -2,6 +2,7 @@
 #define LOGIN_H
 
 #include <QWidget>
+#include <QTimer>
 
 namespace Ui {
 class Login;
@@ -19,6 +20,8 @@ signals:
     void S_InitDashboard(QString username, int rank, bool isServerActive);
 
     void S_ShowLoadingScreen(QWidget* caller);
+
+    void S_HideLoadingScreen(QWidget* caller);
 
 private slots:
     void tryLogin();

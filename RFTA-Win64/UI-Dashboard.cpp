@@ -4,11 +4,11 @@
 #include "mainwindow.h"
 
 void Dashboard::on_ExitButton1_clicked() {
-    emit SChangeForm(0);
+    emit S_ChangeForm(0);
 }
 
 void Dashboard::on_ExitButton2_clicked() {
-    emit SChangeForm(0);
+    emit S_ChangeForm(0);
 }
 
 void Dashboard::initButtonUI(int privileges, bool isServerActive) {
