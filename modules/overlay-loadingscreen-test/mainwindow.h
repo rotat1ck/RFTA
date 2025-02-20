@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QWidget>
+
 #include <QStackedLayout>
 #include <QTimer>
 #include "login.h"

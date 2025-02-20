@@ -4,9 +4,11 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QStackedLayout>
+#include <QTimer>
 
 #include "login.h"
 #include "dashboard.h"
+#include "loadingscreen.h"
 
 
 class MainWindow : public QMainWindow
@@ -22,10 +24,14 @@ private slots:
 
     void showDashboard(QString username);
 
+    void showLoadScreen();
+
+    void hideLoadScreen();
 
 private:
     Login* login;
     Dashboard* dashboard;
+    LoadingScreen* loadScreen;
     QStackedLayout* layout;
 };
 #endif // MAINWINDOW_H

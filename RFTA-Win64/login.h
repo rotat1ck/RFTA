@@ -16,7 +16,9 @@ public:
     ~Login();
 
 signals:
-    void SInitDashboard(QString username, int rank, bool isServerActive);
+    void S_InitDashboard(QString username, int rank, bool isServerActive);
+
+    void S_ShowLoadingScreen(QWidget* caller);
 
 private slots:
     void tryLogin();

@@ -18,6 +18,7 @@ qt_add_executable(RFTA-Win64
     dashboard.h dashboard.cpp dashboard.ui
     UI-Dashboard.cpp
     UI-DashboardStyle.h
+    loadingscreen.h loadingscreen.cpp loadingscreen.ui
 
 )
 
