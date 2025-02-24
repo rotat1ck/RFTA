@@ -19,7 +19,7 @@ void Login::tryLogin() {
     QTimer::singleShot(2000, this, [this]() {
         S_HideLoadingScreen(this);
         QString username = ui->UsernameInput->text();
-        emit S_InitDashboard(username, 3, false);
+        emit S_InitDashboard(username, 4, true);
     });
 }
 

@@ -268,7 +268,7 @@ color: rgba(50, 50, 50, 128);
        <string>Stop</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="EditServerButton">
+     <widget class="QPushButton" name="EditMPButton">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -288,6 +288,37 @@ color: rgba(50, 50, 50, 128);
 border-radius: 15px;
 
 font-family: 'Inter SemiBold';
+font-size: 18px;
+line-height: 22px;
+
+color: rgba(50, 50, 50, 128);
+
+</string>
+      </property>
+      <property name="text">
+       <string>Edit modpack</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="EditServerButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>390</y>
+        <width>130</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgba(217, 217, 217, 128);
+border-radius: 15px;
+
+font-family: 'Inter Semibold';
 font-size: 18px;
 line-height: 22px;
 

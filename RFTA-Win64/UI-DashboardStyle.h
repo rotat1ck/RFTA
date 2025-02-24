@@ -19,7 +19,7 @@ QString activeStopButtonStyle =
     "color: rgba(50, 50, 50, 1);"
 ;
 
-QString activeEditServerButtonStyle =
+QString activeEditButtonStyle =
     "background: rgba(217, 217, 217, 1);"
     "border-radius: 15px;"""
     "font-family: 'Inter SemiBold';"

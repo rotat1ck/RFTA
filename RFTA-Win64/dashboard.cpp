@@ -32,4 +32,3 @@ void Dashboard::receiveUserData(QString username, int rank, bool isServerActive)
 
     initButtonUI(rank, isServerActive);
 }
-

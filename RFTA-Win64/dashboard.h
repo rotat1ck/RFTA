@@ -26,15 +26,19 @@ signals:
 private slots:
     void initButtonUI(int privileges, bool isServerActive);
 
-    void on_ExitButton1_clicked();
+    void enableStartButton();
+    void disableStartButton();
+    void enableStopButton();
+    void disableStopButton();
 
+    void on_ExitButton1_clicked();
     void on_ExitButton2_clicked();
 
     void on_StartButton_clicked();
-
     void on_StopButton_clicked();
-
     void on_EditServerButton_clicked();
+
+    void on_EditMPButton_clicked();
 
 private:
     Ui::Dashboard *ui;
