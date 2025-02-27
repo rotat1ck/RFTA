@@ -1,7 +1,7 @@
-#include "dashboard.h"
+#include "../header/dashboard.h"
 #include "ui_dashboard.h"
 
-#include "mainwindow.h"
+#include "../header/mainwindow.h"
 
 Dashboard::Dashboard(QWidget *parent) :
     QWidget(parent),

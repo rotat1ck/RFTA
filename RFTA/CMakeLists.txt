@@ -3,6 +3,8 @@ project(RFTA LANGUAGES CXX)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
 
+set(CMAKE_AUTOUIC OFF)
+
 qt_standard_project_setup()
 
 qt_add_resources(RESOURCE_FILES res.qrc)
@@ -10,15 +12,14 @@ qt_add_resources(RESOURCE_FILES res.qrc)
 qt_add_executable(RFTA
     WIN32 MACOSX_BUNDLE
     main.cpp
-    mainwindow.cpp
-    mainwindow.h
+    src/mainwindow.cpp
+    header/mainwindow.h
 
     ${RESOURCE_FILES}
-    login.h login.cpp login.ui
-    dashboard.h dashboard.cpp dashboard.ui
-    UI-Dashboard.cpp
-    UI-DashboardStyle.h
-    loadingscreen.h loadingscreen.cpp loadingscreen.ui
+    header/UI-DashboardStyle.h src/UI-Dashboard.cpp
+    header/login.h src/login.cpp forms/login.ui
+    header/dashboard.h src/dashboard.cpp forms/dashboard.ui
+    header/loadingscreen.h src/loadingscreen.cpp forms/loadingscreen.ui
 
 )
 

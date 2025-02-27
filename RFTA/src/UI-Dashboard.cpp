@@ -1,7 +1,7 @@
-#include "dashboard.h"
+#include "../header/dashboard.h"
 #include "ui_dashboard.h"
-#include "UI-DashboardStyle.h"
-#include "mainwindow.h"
+#include "../header/UI-DashboardStyle.h"
+#include "../header/mainwindow.h"
 
 void Dashboard::on_ExitButton1_clicked() {
     emit S_ChangeForm(0);
