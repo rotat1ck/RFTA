@@ -3,31 +3,42 @@ project(RFTA LANGUAGES CXX)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
 
-set(CMAKE_AUTOUIC OFF)
-
 qt_standard_project_setup()
 
 qt_add_resources(RESOURCE_FILES res.qrc)
 
 qt_add_executable(RFTA
     WIN32 MACOSX_BUNDLE
-    main.cpp
-    src/mainwindow.cpp
-    header/mainwindow.h
 
     ${RESOURCE_FILES}
-    header/UI-DashboardStyle.h src/UI-Dashboard.cpp
-    header/login.h src/login.cpp forms/login.ui
-    header/dashboard.h src/dashboard.cpp forms/dashboard.ui
-    header/loadingscreen.h src/loadingscreen.cpp forms/loadingscreen.ui
 
+    main.cpp
+    src/mainwindow.cpp
+    src/UI-Dashboard.cpp
+    src/login.cpp
+    src/dashboard.cpp
+    src/loadingscreen.cpp
+
+    header/mainwindow.h
+    header/UI-DashboardStyle.h
+    header/login.h
+    header/dashboard.h
+    header/loadingscreen.h
 )
+
+qt_add_ui(RFTA SOURCES
+    forms/login.ui
+    forms/dashboard.ui
+    forms/loadingscreen.ui
+)
+
 
 target_link_libraries(RFTA
     PRIVATE
         Qt::Core
         Qt::Widgets
 )
+
 
 include(GNUInstallDirs)
 
