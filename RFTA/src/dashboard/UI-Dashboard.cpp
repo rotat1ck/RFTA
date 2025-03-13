@@ -63,6 +63,17 @@ void Dashboard::initButtonUI(int privileges, bool isServerActive) {
             ui->EditServerButton->setStyleSheet(activeEditButtonStyle);
 
             break;
+        } case 5: {
+            if (isServerActive) {
+                enableStopButton();
+            } else {
+                enableStartButton();
+            }
+
+            ui->EditMPButton->setEnabled(true);
+            ui->EditMPButton->setStyleSheet(activeEditButtonStyle);
+            ui->EditServerButton->setEnabled(true);
+            ui->EditServerButton->setStyleSheet(activeEditButtonStyle);
         }
     }
 }

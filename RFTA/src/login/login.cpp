@@ -25,10 +25,27 @@ void Login::tryLogin() {
     QTimer::singleShot(400, this, [this]() {
         QString username = ui->UsernameInput->text();
         QString password = ui->PasswordInput->text();
-        LoginHandler handler(username, password);
-        auto result = handler.sendRequest();
-        // emit S_InitDashboard(username, 4, true);
+        try {
+            LoginHandler handler(username, password);
+            auto result = handler.sendRequest();
+            json response = json::parse(result.message);
+            if (result.status != 200) {
+                emit S_Infobar(this, response["error"], true);
+            } else {
+                int role = response["role"];
+                std::string token = response["token"];
+                handler.cacheToken(token);
+                // change true to request of the branches
+                emit S_InitDashboard(username, role, true);
+                emit S_ShowDashboard(this);
+            }
+        } catch (json::parse_error& ex) {
+            qDebug() << "JSON parse error: " << ex.what();
+        } catch (std::exception ex) {
+            qDebug() << "Unexpected error: " << ex.what();
+        }
 
+        emit S_HideLoadingScreen(this);
     });
 }
 

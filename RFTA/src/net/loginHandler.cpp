@@ -1,7 +1,5 @@
 #include "../../header/net/loginHandler.h"
 
-#include <iostream>
-
 LoginHandler::LoginHandler(QString usernameEntry, QString passwordEntry) {
     username = "username=" + usernameEntry.toUtf8().toStdString();
     password = "pass=" + toHash::hash(passwordEntry.toUtf8().toStdString());
@@ -12,7 +10,6 @@ LoginHandler::Result LoginHandler::sendRequest() {
     cl.enable_server_certificate_verification(false);
     std::string endpoint = "api/users/login?" + username + "&" + password;
     auto res = cl.Get(endpoint);
-    std::cout << res->body << std::endl;
     if (res->status != 200) {
         return {res->status, res->body, true};
     } else {
@@ -20,6 +17,6 @@ LoginHandler::Result LoginHandler::sendRequest() {
     }
 }
 
-void LoginHandler::cacheToken() {
-
+void LoginHandler::cacheToken(std::string token) {
+    emit S_CacheToken(token);
 }

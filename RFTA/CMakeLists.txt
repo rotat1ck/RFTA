@@ -12,11 +12,14 @@ qt_add_executable(RFTA
 
     ${RESOURCE_FILES}
 
-    # Main file and mainwindow
+    # - - Main file and mainwindow - -
     main.cpp
     src/mainwindow.cpp
     src/UI-SetupHelper.cpp
     header/mainwindow.h
+
+
+    # - - SOURCES - -
 
     # UI Source files
     src/login/login.cpp
@@ -27,10 +30,13 @@ qt_add_executable(RFTA
     # Helping source files
     src/misc/clickQLabel.cpp
     src/misc/hasher.cpp
+    src/misc/infobar.cpp
 
     # Net source files
     src/net/loginHandler.cpp
 
+
+    # - - HEADERS - -
 
     # UI Header files
     header/login/login.h
@@ -41,7 +47,9 @@ qt_add_executable(RFTA
     # Helper header files
     header/misc/clickQLabel.h
     header/misc/hasher.h
+    header/misc/infobar.h
     header/utils/httplib.h
+    header/utils/json.hpp
 
     # Net header files
     header/net/loginHandler.h

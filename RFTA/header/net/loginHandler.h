@@ -5,27 +5,29 @@
 #include "../utils/httplib.h"
 #include "../misc/hasher.h"
 #include <QString>
+#include <QObject>
 
-class LoginHandler {
+class LoginHandler : QObject {
+    Q_OBJECT
 private:
     std::string username;
 
     std::string password;
-
-    std::string token;
 
     struct Result {
         int status;
         std::string message;
         bool isFailure;
     };
+signals:
+    void S_CacheToken(std::string token);
 
 public:
     LoginHandler(QString usernameEntry, QString passwordEntry);
 
     Result sendRequest();
 
-    void cacheToken();
+    void cacheToken(std::string token);
 };
 
 #endif // LOGINHANDLER_H

@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QTimer>
 #include "../misc/clickQLabel.h"
+#include "../utils/json.hpp"
+using json = nlohmann::json;
 
 namespace Ui {
 class Login;
@@ -18,11 +20,15 @@ public:
     ~Login();
 
 signals:
+    void S_ShowDashboard(QWidget* caller);
+
     void S_InitDashboard(QString username, int rank, bool isServerActive);
 
     void S_ShowLoadingScreen(QWidget* caller);
 
     void S_HideLoadingScreen(QWidget* caller);
+
+    void S_Infobar(QWidget* caller, std::string, bool isFailure);
 
 private slots:
     void tryLogin();
