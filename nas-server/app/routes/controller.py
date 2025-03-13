@@ -1,5 +1,3 @@
-# app/routes/controller.py
-
 from flask import Blueprint, jsonify
 from app.models import Server, db
 

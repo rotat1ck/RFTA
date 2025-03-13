@@ -1,7 +1,6 @@
-from app import create_app
-from app.db import db
+from app import startApp
 
-app = create_app()
+app = startApp()
 
 if __name__ == '__main__':
     app.run(debug=True)
