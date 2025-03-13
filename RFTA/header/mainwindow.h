@@ -6,9 +6,9 @@
 #include <QStackedLayout>
 #include <QTimer>
 
-#include "login.h"
-#include "dashboard.h"
-#include "loadingscreen.h"
+#include "login/login.h"
+#include "dashboard/dashboard.h"
+#include "loadScreen/loadingscreen.h"
 
 
 class MainWindow : public QMainWindow

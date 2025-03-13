@@ -14,16 +14,16 @@ qt_add_executable(RFTA
 
     main.cpp
     src/mainwindow.cpp
-    src/UI-Dashboard.cpp
-    src/login.cpp
-    src/dashboard.cpp
-    src/loadingscreen.cpp
+    src/login/login.cpp
+    src/dashboard/UI-Dashboard.cpp
+    src/dashboard/dashboard.cpp
+    src/loadScreen/loadingscreen.cpp
 
     header/mainwindow.h
-    header/UI-DashboardStyle.h
-    header/login.h
-    header/dashboard.h
-    header/loadingscreen.h
+    header/login/login.h
+    header/dashboard/UI-DashboardStyle.h
+    header/dashboard/dashboard.h
+    header/loadScreen/loadingscreen.h
 )
 
 qt_add_ui(RFTA SOURCES
@@ -39,6 +39,22 @@ target_link_libraries(RFTA
         Qt::Widgets
 )
 
+if(WIN32)
+    set(LIBRARY_PATH "C:/msys64/ucrt64/lib")
+    target_link_libraries(RFTA PRIVATE
+        ${LIBRARY_PATH}/libssl.a
+        ${LIBRARY_PATH}/libcrypto.a
+        ${LIBRARY_PATH}/libcrypt32.a
+        ${LIBRARY_PATH}/libbcrypt.a
+        ${LIBRARY_PATH}/libws2_32.a
+    )
+elseif(UNIX)
+    find_package(OpenSSL REQUIRED)
+    target_link_libraries(RFTA PRIVATE
+        OpenSSL::SSL
+        OpenSSL::Crypto
+    )
+endif()
 
 include(GNUInstallDirs)
 

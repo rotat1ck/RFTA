@@ -12,8 +12,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     loadScreen = new LoadingScreen(this);
     loadScreen->hide();
 
-    // TODO: clean up this mess of a file hierarchy
-
     // Login page send request to API
     // Show loading screen
     connect(login, &Login::S_ShowLoadingScreen, this, &MainWindow::showLoadScreen);
