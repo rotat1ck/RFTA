@@ -8,7 +8,7 @@ users_bp = Blueprint('users', __name__)
 # def register_user():
 #     data = request.get_json()
 #     username = data.get('username')
-#     password = data.get('password')
+#     password = data.get('pass')
 
 #     if not username or not password:
 #         return jsonify({"error": "Username and password are required"}), 400
@@ -22,7 +22,7 @@ users_bp = Blueprint('users', __name__)
 @users_bp.route('/login', methods=['GET'])
 def loginUser():
     username = request.args.get('username')
-    password = request.args.get('password')
+    password = request.args.get('pass')
     if not username or not password:
         return jsonify({"error": "Username and password are required"}), 400
 
@@ -31,7 +31,6 @@ def loginUser():
         return jsonify({"error": "Invalid username or password"}), 401
 
     return jsonify({
-        "message": "Login successful",
+        "token": create_token(user.username),
         "role": user.role,
-        "token": create_token(user.username)
     }), 200
