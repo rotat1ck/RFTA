@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTimer>
+#include "../misc/clickQLabel.h"
 
 namespace Ui {
 class Login;
@@ -30,9 +31,12 @@ private slots:
 
     void on_PasswordInput_returnPressed();
 
+    void togglePasswordVisibility();
+
 private:
     Ui::Login *ui;
-
+    bool isPasswordVisible = false;
+    ClickQLabel* showPassword;
 };
 
 #endif // LOGIN_H

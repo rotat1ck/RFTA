@@ -5,3 +5,4 @@
 *.env
 *.db
 __pycache__/
+secret/

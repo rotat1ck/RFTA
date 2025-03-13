@@ -20,6 +20,9 @@ public:
     ~MainWindow();
 
 private slots:
+    void setupLayout();
+    void setupConnects();
+
     void changeForm(int formId);
 
     void showDashboard();
