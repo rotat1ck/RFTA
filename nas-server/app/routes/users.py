@@ -29,6 +29,9 @@ def loginUser():
     user = User.query.filter_by(username=username).first()
     if user is None or user.hash != password:
         return jsonify({"error": "Invalid username or password"}), 401
+    
+    if user.banned:
+        return jsonify({"error": "User is banned"}), 403
 
     return jsonify({
         "token": create_token(user.username),

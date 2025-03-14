@@ -10,7 +10,7 @@ class User(db.Model):
 class Server(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    status = db.Column(db.String(20), nullable=False)
+    status = db.Column(db.Boolean, nullable=False)
     version = db.Column(db.String(20), nullable=True)
     core = db.Column(db.String(20), nullable=True)
     

@@ -1,7 +1,7 @@
 from flask import Flask
 from .db import init_db
 from .routes.users import users_bp
-from .routes.server import servers_bp
+from .routes.servers import servers_bp
 from .routes.controller import controller_bp
 from .routes.admin import admin_bp
 

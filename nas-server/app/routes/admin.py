@@ -10,10 +10,10 @@ def getUsers(requesterUsername):
     users = User.query.all()
     return jsonify([{"id": user.id, "username": user.username, "role": user.role, "banned": user.banned} for user in users]), 200
 
-@admin_bp.route('/getuser/<int:user_id>', methods=['GET'])
+@admin_bp.route('/getuser/<int:userId>', methods=['GET'])
 @admin_only
-def getUser(requesterUsername, user_id):
-    user = User.query.get(user_id)
+def getUser(requesterUsername, userId):
+    user = User.query.get(userId)
     if user is None:
         return jsonify({"error": "User not found"}), 404
 
@@ -27,6 +27,9 @@ def createUser(requesterUsername):
     role = request.args.get('role')
     if not username or not password or not role:
         return jsonify({"error": "Username, password and role are required"}), 400
+    
+    if len(username) < 3 or len(username) > 16:
+        return jsonify({"error": "Username must be between 3 and 16 characters"}),
     
     if User.query.filter_by(username=username).first() is not None:
         return jsonify({"error": "Username already exists"}), 400
