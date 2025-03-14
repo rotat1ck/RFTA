@@ -23,12 +23,12 @@ signals:
     void S_CacheToken(std::string token);
 
 public:
+    std::string token;
+
     LoginHandler() {}
 
     void loadData(QString usernameEntry, QString passwordEntry);
-
     Result sendRequest();
-
     void cacheToken(std::string token);
 };
 

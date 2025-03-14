@@ -17,14 +17,10 @@ class Login : public QWidget
     Q_OBJECT
 
 public:
-    explicit Login(QWidget *parent = nullptr);
+    explicit Login(QWidget *parent = nullptr, LoginHandler* handlerEntry = nullptr);
     ~Login();
 
 signals:
-    // - - NET - -
-    void S_InitReady();
-    void S_CreateNetLoginHandler(LoginHandler* handler);
-
     // - - UI - -
     void S_ShowDashboard(QWidget* caller);
     void S_InitDashboard(QString username, int rank, bool isServerActive);

@@ -1,8 +1,8 @@
 #include "../header/mainwindow.h"
 
 void MainWindow::setupLayout() {
-    login = new Login(this);
-    dashboard = new Dashboard(this);
+    login = new Login(this, netLoginHandler);
+    dashboard = new Dashboard(this, netLoginHandler, netServerHandler);
 
     layout = new QStackedLayout;
     layout->addWidget(login);
@@ -21,9 +21,6 @@ void MainWindow::setupConnects() {
 }
 
 void MainWindow::loginPageConnects() {
-    // Receive handler
-    connect(login, &Login::S_CreateNetLoginHandler, this, &MainWindow::receiveNetLoginHandler);
-
     // Show loading screen
     connect(login, &Login::S_ShowLoadingScreen, this, &MainWindow::showLoadScreen);
     connect(login, &Login::S_HideLoadingScreen, this, &MainWindow::hideLoadScreen);
@@ -37,9 +34,6 @@ void MainWindow::loginPageConnects() {
 }
 
 void MainWindow::dashboardPageConnects() {
-    // Receive handler
-    connect(dashboard, &Dashboard::S_CreateNetServerHandler, this, &MainWindow::receiveNetServerHandler);
-
     // Change form
     connect(dashboard, &Dashboard::S_ChangeForm, this, &MainWindow::changeForm);
 }

@@ -21,15 +21,15 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    std::string token;
 
 private slots:
     // - - NET - -
-    void receiveNetLoginHandler(LoginHandler* loginHandler);
-    void receiveNetServerHandler(ServerHandler* serverHandler);
-    void receiveLoginToken(std::string recToken);
+    void createLoginHandler();
+    void createServerHandler();
 
     // - - CONNECTS - -
+    void startSetup();
+    void setupNet();
     void setupLayout();
     void setupConnects();
     void loginPageConnects();

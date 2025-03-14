@@ -16,7 +16,3 @@ LoginHandler::Result LoginHandler::sendRequest() {
         return {res->status, res->body, false};
     }
 }
-
-void LoginHandler::cacheToken(std::string token) {
-    emit S_CacheToken(token);
-}

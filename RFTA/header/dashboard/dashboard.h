@@ -2,6 +2,7 @@
 #define DASHBOARD_H
 
 #include <QWidget>
+#include "../net/loginHandler.h"
 #include "../net/serverHandler.h"
 #include "../utils/json.hpp"
 
@@ -14,15 +15,13 @@ class Dashboard : public QWidget
     Q_OBJECT
 
 public:
-    explicit Dashboard(QWidget *parent = nullptr);
+    explicit Dashboard(QWidget *parent = nullptr, LoginHandler* loginHandlerEntry = nullptr,
+                       ServerHandler* serverHandlerEntry = nullptr);
+
     void receiveUserData(QString username, int rank, bool isServerActive);
     ~Dashboard();
 
 signals:
-    // - - NET - -
-    void S_InitReady();
-    void S_CreateNetServerHandler(ServerHandler* handler);
-
     // - - UI - -
     void S_ChangeForm(int formId);
     void S_ShowLoadingScreen(QWidget* caller);
@@ -47,6 +46,8 @@ private slots:
 
 private:
     Ui::Dashboard *ui;
+    LoginHandler* loginHandler;
+    ServerHandler* serverHandler;
 };
 
 #endif // DASHBOARD_H

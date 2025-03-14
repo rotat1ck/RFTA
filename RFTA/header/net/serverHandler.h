@@ -10,11 +10,8 @@ using json = nlohmann::json;
 
 class ServerHandler : public QObject {
     Q_OBJECT
+
 private:
-    ServerHandler();
-
-
-public:
     struct ServerList {
         int id;
         std::string name;
@@ -23,6 +20,12 @@ public:
         bool status;
     };
 
+public:
+    std::string token;
+
+    ServerHandler() {}
+
+    ServerList getServers();
 };
 
 #endif // SERVERHANDLER_H

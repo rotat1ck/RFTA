@@ -1,6 +1,11 @@
 #include "../header/mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+    startSetup();
+}
+
+void MainWindow::startSetup() {
+    setupNet();
     setupLayout();
     setupConnects();
 }
@@ -11,6 +16,8 @@ MainWindow::~MainWindow() {
     delete loadScreen;
     delete layout;
     delete infobar;
+    delete netLoginHandler;
+    delete netServerHandler;
 }
 
 void MainWindow::changeForm(int formId) {
