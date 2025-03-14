@@ -16,6 +16,7 @@ qt_add_executable(RFTA
     main.cpp
     src/mainwindow.cpp
     src/UI-SetupHelper.cpp
+    src/NET-SetupHelper.cpp
     header/mainwindow.h
 
 
@@ -34,6 +35,7 @@ qt_add_executable(RFTA
 
     # Net source files
     src/net/loginHandler.cpp
+    src/net/serverHandler.cpp
 
 
     # - - HEADERS - -
@@ -53,6 +55,7 @@ qt_add_executable(RFTA
 
     # Net header files
     header/net/loginHandler.h
+    header/net/serverHandler.h
 )
 
 qt_add_ui(RFTA SOURCES

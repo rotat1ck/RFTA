@@ -1,11 +1,11 @@
 #include "../../header/login/login.h"
-#include "../../header/net/loginHandler.h"
 #include "ui_login.h"
 
 Login::Login(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Login)
 {
+    handler = new LoginHandler();
     ui->setupUi(this);
     ui->PasswordInput->setEchoMode(QLineEdit::Password);
     showPassword = new ClickQLabel(ui->centralwidget);
@@ -21,20 +21,21 @@ Login::~Login()
 }
 
 void Login::tryLogin() {
+    emit S_CreateNetLoginHandler(handler);
     emit S_ShowLoadingScreen(this);
     QTimer::singleShot(400, this, [this]() {
         QString username = ui->UsernameInput->text();
         QString password = ui->PasswordInput->text();
+        handler->loadData(username, password);
         try {
-            LoginHandler handler(username, password);
-            auto result = handler.sendRequest();
+            auto result = handler->sendRequest();
             json response = json::parse(result.message);
             if (result.status != 200) {
                 emit S_Infobar(this, response["error"], true);
             } else {
                 int role = response["role"];
                 std::string token = response["token"];
-                handler.cacheToken(token);
+                handler->cacheToken(token);
                 // change true to request of the branches
                 emit S_InitDashboard(username, role, true);
                 emit S_ShowDashboard(this);

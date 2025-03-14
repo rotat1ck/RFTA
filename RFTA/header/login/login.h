@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTimer>
+#include "../net/loginHandler.h"
 #include "../misc/clickQLabel.h"
 #include "../utils/json.hpp"
 using json = nlohmann::json;
@@ -20,14 +21,15 @@ public:
     ~Login();
 
 signals:
+    // - - NET - -
+    void S_InitReady();
+    void S_CreateNetLoginHandler(LoginHandler* handler);
+
+    // - - UI - -
     void S_ShowDashboard(QWidget* caller);
-
     void S_InitDashboard(QString username, int rank, bool isServerActive);
-
     void S_ShowLoadingScreen(QWidget* caller);
-
     void S_HideLoadingScreen(QWidget* caller);
-
     void S_Infobar(QWidget* caller, std::string, bool isFailure);
 
 private slots:
@@ -43,6 +45,7 @@ private:
     Ui::Login *ui;
     bool isPasswordVisible = false;
     ClickQLabel* showPassword;
+    LoginHandler* handler;
 };
 
 #endif // LOGIN_H

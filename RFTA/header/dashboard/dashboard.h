@@ -2,6 +2,8 @@
 #define DASHBOARD_H
 
 #include <QWidget>
+#include "../net/serverHandler.h"
+#include "../utils/json.hpp"
 
 namespace Ui {
 class Dashboard;
@@ -17,10 +19,13 @@ public:
     ~Dashboard();
 
 signals:
+    // - - NET - -
+    void S_InitReady();
+    void S_CreateNetServerHandler(ServerHandler* handler);
+
+    // - - UI - -
     void S_ChangeForm(int formId);
-
     void S_ShowLoadingScreen(QWidget* caller);
-
     void S_HideLoadingScreen(QWidget* caller);
 
 private slots:

@@ -7,7 +7,7 @@
 #include <QString>
 #include <QObject>
 
-class LoginHandler : QObject {
+class LoginHandler : public QObject {
     Q_OBJECT
 private:
     std::string username;
@@ -23,7 +23,9 @@ signals:
     void S_CacheToken(std::string token);
 
 public:
-    LoginHandler(QString usernameEntry, QString passwordEntry);
+    LoginHandler() {}
+
+    void loadData(QString usernameEntry, QString passwordEntry);
 
     Result sendRequest();
 

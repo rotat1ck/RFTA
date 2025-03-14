@@ -1,5 +1,5 @@
-#ifndef UI-DASHBOARDSTYLE_H
-#define UI-DASHBOARDSTYLE_H
+#ifndef UI_DASHBOARDSTYLE_H
+#define UI_DASHBOARDSTYLE_H
 
 QString activeStartButtonStyle =
     "background: rgba(204, 218, 185, 1);"
@@ -47,4 +47,4 @@ QString inactiveStopButtonStyle =
 ;
 
 
-#endif // UI-DASHBOARDSTYLE_H
+#endif // UI_DASHBOARDSTYLE_H
