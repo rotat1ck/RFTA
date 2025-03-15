@@ -10,6 +10,8 @@
 class LoginHandler : public QObject {
     Q_OBJECT
 private:
+    httplib::Client cl;
+
     std::string username;
 
     std::string password;
@@ -25,10 +27,14 @@ signals:
 public:
     std::string token;
 
-    LoginHandler() {}
+    LoginHandler() : cl("https://77.37.246.6:7777") {
+        cl.enable_server_certificate_verification(false);
+        cl.set_connection_timeout(0, 500000);
+    }
 
     void loadData(QString usernameEntry, QString passwordEntry);
     Result sendRequest();
+    bool checkServerStatus();
     void cacheToken(std::string token);
 };
 

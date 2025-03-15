@@ -18,7 +18,7 @@ public:
     explicit Dashboard(QWidget *parent = nullptr, LoginHandler* loginHandlerEntry = nullptr,
                        ServerHandler* serverHandlerEntry = nullptr);
 
-    void receiveUserData(QString username, int rank, bool isServerActive);
+    void receiveUserData(QString username, int rank);
     ~Dashboard();
 
 signals:
@@ -28,20 +28,21 @@ signals:
     void S_HideLoadingScreen(QWidget* caller);
 
 private slots:
-    void initButtonUI(int privileges, bool isServerActive);
+    // - - NET - -
 
+
+
+    // - - UI - -
+    void initButtonUI(int privileges, bool isServerActive);
     void enableStartButton();
     void disableStartButton();
     void enableStopButton();
     void disableStopButton();
-
     void on_ExitButton1_clicked();
     void on_ExitButton2_clicked();
-
     void on_StartButton_clicked();
     void on_StopButton_clicked();
     void on_EditServerButton_clicked();
-
     void on_EditMPButton_clicked();
 
 private:

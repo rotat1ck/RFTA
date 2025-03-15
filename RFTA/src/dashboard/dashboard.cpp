@@ -1,8 +1,6 @@
 #include "../../header/dashboard/dashboard.h"
 #include "ui_dashboard.h"
 
-#include "../../header/mainwindow.h"
-
 Dashboard::Dashboard(QWidget *parent, LoginHandler* loginHandlerEntry,
 ServerHandler* serverHandlerEntry) : QWidget(parent),
     ui(new Ui::Dashboard), loginHandler(loginHandlerEntry), serverHandler(serverHandlerEntry)
@@ -16,8 +14,8 @@ Dashboard::~Dashboard()
 }
 
 // TODO: get a list of branches from API to fill the branch section
-void Dashboard::receiveUserData(QString username, int rank, bool isServerActive) {
-    qDebug() << loginHandler->token;
+void Dashboard::receiveUserData(QString username, int rank) {
+    serverHandler->getServers(loginHandler->token);
     QString privileges = QString::number(rank);
     ui->NameBar->setText(username);
     ui->Privileges->setText("#" + privileges);
@@ -31,5 +29,5 @@ void Dashboard::receiveUserData(QString username, int rank, bool isServerActive)
     }
     ui->ConsoleUsername->setText(consoleTemplate);
 
-    initButtonUI(rank, isServerActive);
+    Dashboard::initButtonUI(rank, true);
 }

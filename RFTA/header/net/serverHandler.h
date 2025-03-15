@@ -12,12 +12,9 @@ class ServerHandler : public QObject {
     Q_OBJECT
 
 private:
-    struct ServerList {
-        int id;
-        std::string name;
-        std::string version;
-        std::string core;
-        bool status;
+    struct Result {
+        int status;
+        std::string message;
     };
 
 public:
@@ -25,7 +22,7 @@ public:
 
     ServerHandler() {}
 
-    ServerList getServers();
+    Result getServers(std::string tokenEntry);
 };
 
 #endif // SERVERHANDLER_H

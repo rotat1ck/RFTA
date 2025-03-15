@@ -25,21 +25,25 @@ void Login::tryLogin() {
         QString password = ui->PasswordInput->text();
         handler->loadData(username, password);
         try {
-            auto result = handler->sendRequest();
-            json response = json::parse(result.message);
-            if (result.status != 200) {
-                emit S_Infobar(this, response["error"], true);
+            if (handler->checkServerStatus()) {
+                auto result = handler->sendRequest();
+                json response = json::parse(result.message);
+                if (result.status != 200) {
+                    emit S_Infobar(this, response["error"], true);
+                } else {
+                    int role = response["role"];
+                    handler->token = response["token"];
+                    // change true to request of the branches
+                    emit S_InitDashboard(username, role);
+                    emit S_ShowDashboard(this);
+                }
             } else {
-                int role = response["role"];
-                handler->token = response["token"];
-                // change true to request of the branches
-                emit S_InitDashboard(username, role, true);
-                emit S_ShowDashboard(this);
+                emit S_Infobar(this, "Connection failed", true);
             }
         } catch (json::parse_error& ex) {
-            qDebug() << "JSON parse error: " << ex.what();
+            emit S_Infobar(this, "Unexpected error", true);
         } catch (std::exception ex) {
-            qDebug() << "Unexpected error: " << ex.what();
+            emit S_Infobar(this, "Unexpected error", true);
         }
 
         emit S_HideLoadingScreen(this);

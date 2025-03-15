@@ -23,7 +23,7 @@ public:
 signals:
     // - - UI - -
     void S_ShowDashboard(QWidget* caller);
-    void S_InitDashboard(QString username, int rank, bool isServerActive);
+    void S_InitDashboard(QString username, int rank);
     void S_ShowLoadingScreen(QWidget* caller);
     void S_HideLoadingScreen(QWidget* caller);
     void S_Infobar(QWidget* caller, std::string, bool isFailure);
