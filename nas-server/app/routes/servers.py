@@ -13,9 +13,8 @@ def listServers(currentUser):
 
 @servers_bp.route("/addserver", methods=['POST'])
 @token_required
-def createServer(currentUser):
-    user = User.query.filter_by(username=currentUser).first()
-    if (user is None or user.role < 4):
+def createServer(user):
+    if (user.role < 4):
         return jsonify({"error": "You don't have permission to create a server"}), 403
     
     name = request.args.get('name')
@@ -40,9 +39,8 @@ def createServer(currentUser):
 
 @servers_bp.route("/deleteserver/<int:serverId>", methods=['DELETE'])
 @token_required
-def deleteServer(currentUser, serverId):
-    user = User.query.filter_by(username=currentUser).first()
-    if (user is None or user.role < 4):
+def deleteServer(user, serverId):
+    if (user.role < 4):
         return jsonify({"error": "You don't have permission to delete a server"}), 403
     
     server = Server.query.filter_by(id=serverId).first()
@@ -56,9 +54,8 @@ def deleteServer(currentUser, serverId):
 
 @servers_bp.route("/changeversion/<int:serverId>", methods=['POST'])
 @token_required
-def changeVersion(currentUser, serverId):
-    user = User.query.filter_by(username=currentUser).first()
-    if user is None or user.role < 3:
+def changeVersion(user, serverId):
+    if user.role < 4:
         return jsonify({"error": "You don't have permission to change the server version"}), 403
     
     newVersion = request.args.get("version")
@@ -80,9 +77,8 @@ def changeVersion(currentUser, serverId):
 
 @servers_bp.route("/changecore/<int:serverId>", methods=['POST'])
 @token_required
-def changeCore(currentUser, serverId):
-    user = User.query.filter_by(username=currentUser).first()
-    if user is None or user.role < 3:
+def changeCore(user, serverId):
+    if user.role < 4:
         return jsonify({"error": "You don't have permission to change the server core"}), 403
     
     newCore = request.args.get("core")
@@ -101,6 +97,11 @@ def changeCore(currentUser, serverId):
     db.session.commit()
     
     return jsonify({"message": "Server core changed successfully"}), 200
+
+@servers_bp.route("/getmp/<int:serverId>", methods=['GET'])
+@token_required
+def getMp(currentUser, serverId):
+    return jsonify({"message": "This endpoint is not implemented yet"}), 501
 
 @servers_bp.route("/loadjar/<int:serverId>", methods=['POST'])
 @token_required

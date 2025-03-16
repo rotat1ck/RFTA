@@ -2,6 +2,7 @@ from flask import current_app, request, jsonify
 import jwt
 from datetime import datetime, timedelta, timezone
 from functools import wraps
+from app.models import User
 
 def create_token(username):
     current_time = datetime.now(timezone.utc)
@@ -25,11 +26,16 @@ def token_required(f):
         try:
             data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])
             current_user = data['sub']
+            user = User.query.filter_by(username=current_user).first()
+            
+            if user.banned:
+                return jsonify({'error': 'User is banned'}), 403
+            
         except jwt.ExpiredSignatureError:
             return jsonify({'error': 'Expired token'}), 401
         except jwt.InvalidTokenError:
             return jsonify({'error': 'Invalid token'}), 401
 
-        return f(current_user, *args, **kwargs)
+        return f(user, *args, **kwargs)
 
     return decorated
