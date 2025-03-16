@@ -1,5 +1,5 @@
 from flask import Flask
-from .db import init_db
+from .config import initConfig
 from .routes.users import users_bp
 from .routes.servers import servers_bp
 from .routes.controller import controller_bp
@@ -7,7 +7,7 @@ from .routes.admin import admin_bp
 
 def startApp():
     app = Flask(__name__)
-    init_db(app)
+    initConfig(app)
 
     app.register_blueprint(users_bp, url_prefix='/api/users')
     app.register_blueprint(servers_bp, url_prefix='/api/servers')

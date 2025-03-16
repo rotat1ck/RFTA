@@ -1,5 +1,5 @@
 from app import startApp
-from app.db import db
+from app.config import db
 from os import path
 
 app = startApp()
