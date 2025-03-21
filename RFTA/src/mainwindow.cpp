@@ -53,7 +53,8 @@ void MainWindow::hideLoadScreen(QWidget* caller) {
     caller->setEnabled(true);
 }
 
-void MainWindow::showDashboard(QWidget *caller) {
+void MainWindow::initDashboard(QWidget* caller, QString username, int rank) {
+    dashboard->initSequence(username, rank);
     changeForm(1);
     infobarDisplay(caller, "Successful login", false);
 }

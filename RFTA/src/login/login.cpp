@@ -33,9 +33,7 @@ void Login::tryLogin() {
                 } else {
                     int role = response["role"];
                     handler->token = response["token"];
-                    // change true to request of the branches
-                    emit S_InitDashboard(username, role);
-                    emit S_ShowDashboard(this);
+                    emit S_InitDashboard(this, username, role);
                 }
             } else {
                 emit S_Infobar(this, "Connection failed", true);

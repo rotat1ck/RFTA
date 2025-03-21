@@ -78,6 +78,18 @@ void Dashboard::initButtonUI(int privileges, bool isServerActive) {
     }
 }
 
+void Dashboard::getServers(QString username, int rank) {
+    QString consoleTemplate;
+    if (rank >= 4) {
+        // TODO: change Main with first branch from list
+        consoleTemplate = username + "@" + "Main" + ":~# ";
+    } else {
+        // TODO: change Main with first branch from list
+        consoleTemplate = username + "@" + "Main" + ":~$ ";
+    }
+    ui->ConsoleUsername->setText(consoleTemplate);
+}
+
 void Dashboard::on_StartButton_clicked() {
     disableStartButton();
     enableStopButton();

@@ -40,7 +40,7 @@ private slots:
     void reInitializePopUps();
     void showLoadScreen(QWidget* caller);
     void hideLoadScreen(QWidget* caller);
-    void showDashboard(QWidget *caller);
+    void initDashboard(QWidget* caller, QString username, int rank);
     void infobarDisplay(QWidget* caller, std::string message, bool isFailure);
 
 private:

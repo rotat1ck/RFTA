@@ -1,5 +1,4 @@
 #include "../../header/net/loginHandler.h"
-#include <iostream>
 
 void LoginHandler::loadData(QString usernameEntry, QString passwordEntry) {
     username = "username=" + usernameEntry.toUtf8().toStdString();

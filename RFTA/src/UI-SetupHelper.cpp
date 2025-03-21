@@ -29,8 +29,7 @@ void MainWindow::loginPageConnects() {
     connect(login, &Login::S_Infobar, this, &MainWindow::infobarDisplay);
 
     // Login successful, redirect to dashboard
-    connect(login, &Login::S_InitDashboard, dashboard, &Dashboard::receiveUserData);
-    connect(login, &Login::S_ShowDashboard, this, &MainWindow::showDashboard);
+    connect(login, &Login::S_InitDashboard, this, &MainWindow::initDashboard);
 }
 
 void MainWindow::dashboardPageConnects() {

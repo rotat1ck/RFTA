@@ -14,20 +14,11 @@ Dashboard::~Dashboard()
 }
 
 // TODO: get a list of branches from API to fill the branch section
-void Dashboard::receiveUserData(QString username, int rank) {
-    serverHandler->getServers(loginHandler->token);
+void Dashboard::initSequence(QString username, int rank) {
     QString privileges = QString::number(rank);
     ui->NameBar->setText(username);
     ui->Privileges->setText("#" + privileges);
-    QString consoleTemplate;
-    if (rank >= 4) {
-        // TODO: change Main with first branch from list
-        consoleTemplate = username + "@" + "Main" + ":~# ";
-    } else {
-        // TODO: change Main with first branch from list
-        consoleTemplate = username + "@" + "Main" + ":~$ ";
-    }
-    ui->ConsoleUsername->setText(consoleTemplate);
 
     Dashboard::initButtonUI(rank, true);
+    Dashboard::getServers(username, rank);
 }

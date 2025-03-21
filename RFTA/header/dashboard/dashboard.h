@@ -18,7 +18,7 @@ public:
     explicit Dashboard(QWidget *parent = nullptr, LoginHandler* loginHandlerEntry = nullptr,
                        ServerHandler* serverHandlerEntry = nullptr);
 
-    void receiveUserData(QString username, int rank);
+    void initSequence(QString username, int rank);
     ~Dashboard();
 
 signals:
@@ -29,7 +29,7 @@ signals:
 
 private slots:
     // - - NET - -
-
+    void getServers(QString username, int rank);
 
 
     // - - UI - -
