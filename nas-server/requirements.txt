@@ -1,3 +1,4 @@
 Flask
 PyJWT
 python-dotenv
+Flask-SQLAlchemy

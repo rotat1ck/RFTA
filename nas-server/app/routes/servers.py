@@ -1,6 +1,7 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from app.models import Server, User, db
 from app.utils.jwtdec import token_required
+import os
 
 servers_bp = Blueprint('servers', __name__)
 
@@ -27,14 +28,18 @@ def createServer(user):
     if len(name) < 3 or len(name) > 10:
         return jsonify({"error": "Server name must be between 3 and 10 characters"}), 400
     
-    new = Server(name=name, status=False)
-    db.session.add(new)
-    db.session.commit()
     servers = Server.query.all()
-    
     if len(servers) >= 5:
         return jsonify({"error": "Maximum number of servers reached"}), 400
     
+    new = Server(name=name, status=False)
+    db.session.add(new)
+    db.session.commit()
+
+    serverDir = os.path.join(current_app.config['SERVERS_URI'], new.name)
+    if not os.path.exists(serverDir):
+        os.makedirs(serverDir)
+
     return jsonify({"message": "Server created successfully"}), 200
 
 @servers_bp.route("/deleteserver/<int:serverId>", methods=['DELETE'])
@@ -106,9 +111,57 @@ def getMp(currentUser, serverId):
 @servers_bp.route("/loadjar/<int:serverId>", methods=['POST'])
 @token_required
 def loadJar(currentUser, serverId):
-    return jsonify({"message": "This endpoint is not implemented yet"}), 501
+    if currentUser.role < 3:
+        return jsonify({"error": "You don't have permission to load mods"}), 403
+    
+    file = request.files.get('mod')
+    if file is None:
+        return jsonify({"error": "Mod file is required"}), 400
+    
+    if not file.filename.endswith('.jar'):
+        return jsonify({"error": "Only .jar files are allowed"}), 400
+    
+    server = Server.query.filter_by(id=serverId).first()
+    
+    if server is None:
+        return jsonify({"error": "Server not found"}), 404
+
+    serverDir = os.path.join(current_app.config['SERVERS_URI'], server.name)
+    modsDir = os.path.join(serverDir, 'mods')
+    if not os.path.exists(modsDir):
+        os.makedirs(modsDir)
+
+    filePath = os.path.join(modsDir, file.filename)
+    file.save(filePath)
+
+    return jsonify({"message": "Mod loaded successfully"}), 200
 
 @servers_bp.route("/loadzip/<int:serverId>", methods=['POST'])
 @token_required
 def loadZip(currentUser, serverId):
-    return jsonify({"message": "This endpoint is not implemented yet"}), 501
+    if currentUser.role < 3:
+        return jsonify({"error": "You don't have permission to load mods"}), 403
+    
+    file = request.files.get('zip')
+    if file is None:
+        return jsonify({"error": "Zip file is required"}), 400
+    
+    if not file.filename.endswith('.zip'):
+        return jsonify({"error": "Only .zip files are allowed"}), 400
+    
+    server = Server.query.filter_by(id=serverId).first()
+    
+    if server is None:
+        return jsonify({"error": "Server not found"}), 404
+
+    serverDir = os.path.join(current_app.config['SERVERS_URI'], server.name)
+    modsDir = os.path.join(serverDir, 'mods')
+    if not os.path.exists(modsDir):
+        os.makedirs(modsDir)
+
+    filePath = os.path.join(modsDir, file.filename)
+    file.save(filePath)
+
+    # TODO: Unzip the file from folder
+
+    return jsonify({"message": "Archive loaded successfully"}), 200
