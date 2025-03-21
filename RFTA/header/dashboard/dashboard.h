@@ -24,16 +24,18 @@ public:
 signals:
     // - - UI - -
     void S_ChangeForm(int formId);
+    void S_Infobar(QWidget* caller, std::string, bool isFailure);
     void S_ShowLoadingScreen(QWidget* caller);
     void S_HideLoadingScreen(QWidget* caller);
 
 private slots:
     // - - NET - -
-    void getServers(QString username, int rank);
+    void initBranches(QString username, int rank);
+    void getServers();
 
 
     // - - UI - -
-    void initButtonUI(int privileges, bool isServerActive);
+    void initButtonUI(int privileges);
     void enableStartButton();
     void disableStartButton();
     void enableStopButton();

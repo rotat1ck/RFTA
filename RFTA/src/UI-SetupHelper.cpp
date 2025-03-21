@@ -35,4 +35,5 @@ void MainWindow::loginPageConnects() {
 void MainWindow::dashboardPageConnects() {
     // Change form
     connect(dashboard, &Dashboard::S_ChangeForm, this, &MainWindow::changeForm);
+    connect(dashboard, &Dashboard::S_Infobar, this, &MainWindow::infobarDisplay);
 }

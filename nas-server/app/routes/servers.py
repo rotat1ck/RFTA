@@ -9,8 +9,8 @@ servers_bp = Blueprint('servers', __name__)
 @token_required
 def listServers(currentUser):
     servers = Server.query.all()
-    return jsonify([{"id": server.id, "name": server.name, "status": server.status, "version": server.version, 
-                    "core": server.core} for server in servers]), 200
+    return jsonify({"servers": [{"id": server.id, "name": server.name, "status": server.status, "version": server.version, 
+                    "core": server.core} for server in servers]}), 200
 
 
 @servers_bp.route("/addserver", methods=['POST'])

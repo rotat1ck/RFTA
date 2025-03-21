@@ -31,7 +31,8 @@ void Dashboard::disableStopButton() {
     ui->StopButton->setStyleSheet(inactiveStopButtonStyle);
 }
 
-void Dashboard::initButtonUI(int privileges, bool isServerActive) {
+void Dashboard::initButtonUI(int privileges) {
+    bool isServerActive = serverHandler->servers[0].status;
     switch(privileges) {
         case 2: {
             if (!isServerActive) {
@@ -78,16 +79,46 @@ void Dashboard::initButtonUI(int privileges, bool isServerActive) {
     }
 }
 
-void Dashboard::getServers(QString username, int rank) {
+void Dashboard::initBranches(QString username, int rank) {
+    getServers();
+
     QString consoleTemplate;
     if (rank >= 4) {
-        // TODO: change Main with first branch from list
-        consoleTemplate = username + "@" + "Main" + ":~# ";
+        consoleTemplate = username + "@" + QString::fromStdString(serverHandler->servers[0].name) + ":~# ";
     } else {
-        // TODO: change Main with first branch from list
-        consoleTemplate = username + "@" + "Main" + ":~$ ";
+        consoleTemplate = username + "@" + QString::fromStdString(serverHandler->servers[0].name) + ":~$ ";
     }
     ui->ConsoleUsername->setText(consoleTemplate);
+}
+
+void Dashboard::getServers() {
+    serverHandler->servers.clear();
+    try {
+        if (loginHandler->checkServerStatus()) {
+            auto result = serverHandler->getServers(loginHandler->token);
+            json response = json::parse(result.message);
+            if (result.status != 200) {
+                emit S_Infobar(this, response["error"], true);
+            } else {
+                for (auto server : response["servers"]) {
+                    ServerHandler::Server info;
+                    info.id = server["id"];
+                    info.name = server["name"];
+                    info.core = server.contains("core") && !server["core"].is_null() ? server["core"].get<std::string>() : "";
+                    info.version = server.contains("version") && !server["version"].is_null() ? server["version"].get<std::string>() : "";
+                    info.status = server["status"].get<bool>();
+
+                    serverHandler->servers.push_back(info);
+                }
+            }
+        } else {
+            emit S_Infobar(this, "Connection failed", true);
+        }
+    } catch (json::parse_error& ex) {
+        emit S_Infobar(this, "Unexpected error", true);
+    } catch (std::exception ex) {
+        emit S_Infobar(this, "Unexpected error", true);
+    }
 }
 
 void Dashboard::on_StartButton_clicked() {
