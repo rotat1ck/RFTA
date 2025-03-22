@@ -2,6 +2,7 @@
 #define DASHBOARD_H
 
 #include <QWidget>
+#include <QVBoxLayout>
 #include "../net/loginHandler.h"
 #include "../net/serverHandler.h"
 #include "../utils/json.hpp"
@@ -35,7 +36,7 @@ private slots:
 
 
     // - - UI - -
-    void initButtonUI(int privileges);
+    void initButtonUI(QString username, int privileges, ServerHandler::Server);
     void enableStartButton();
     void disableStartButton();
     void enableStopButton();
@@ -51,6 +52,7 @@ private:
     Ui::Dashboard *ui;
     LoginHandler* loginHandler;
     ServerHandler* serverHandler;
+    QVBoxLayout* serversLayout;
 };
 
 #endif // DASHBOARD_H
