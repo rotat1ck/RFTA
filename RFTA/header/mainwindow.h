@@ -8,8 +8,11 @@
 
 #include "login/login.h"
 #include "dashboard/dashboard.h"
+#include "dashboard/mods.h"
+
 #include "loadScreen/loadingscreen.h"
 #include "misc/infobar.h"
+
 #include "net/loginHandler.h"
 #include "net/serverHandler.h"
 
@@ -49,10 +52,11 @@ private:
     ServerHandler* netServerHandler;
 
     // - - UI - -
+    QStackedLayout* layout;
     Login* login;
     Dashboard* dashboard;
     LoadingScreen* loadScreen;
-    QStackedLayout* layout;
+    Mods* mods;
     InfoBar* infobar;
 };
 #endif // MAINWINDOW_H

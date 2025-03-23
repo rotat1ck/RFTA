@@ -27,6 +27,7 @@ qt_add_executable(RFTA
     src/dashboard/UI-Dashboard.cpp
     src/dashboard/NET-Dashboard.cpp
     src/dashboard/dashboard.cpp
+    src/dashboard/mods.cpp
     src/loadScreen/loadingscreen.cpp
 
     # Helping source files
@@ -45,6 +46,7 @@ qt_add_executable(RFTA
     header/login/login.h
     header/dashboard/UI-dashboardStyle.h
     header/dashboard/dashboard.h
+    header/dashboard/mods.h
     header/loadScreen/loadingscreen.h
 
     # Helper header files
@@ -63,6 +65,7 @@ qt_add_ui(RFTA SOURCES
     forms/login.ui
     forms/dashboard.ui
     forms/loadingscreen.ui
+    forms/mods.ui
 )
 
 

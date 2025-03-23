@@ -13,6 +13,7 @@ void MainWindow::startSetup() {
 MainWindow::~MainWindow() {
     delete login;
     delete dashboard;
+    delete mods;
     delete loadScreen;
     delete layout;
     delete infobar;

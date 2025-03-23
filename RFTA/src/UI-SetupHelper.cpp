@@ -3,10 +3,12 @@
 void MainWindow::setupLayout() {
     login = new Login(this, netLoginHandler);
     dashboard = new Dashboard(this, netLoginHandler, netServerHandler);
+    mods = new Mods(this);
 
     layout = new QStackedLayout;
     layout->addWidget(login);
     layout->addWidget(dashboard);
+    layout->addWidget(mods);
     layout->setCurrentWidget(login);
 
     loadScreen = new LoadingScreen(this);
