@@ -11,7 +11,7 @@ QString activeServerButtonStyle =
 ;
 
 QString inactiveServerButtonStyle =
-    "background: rgba(155, 155, 155, 76);"
+    "background: rgba(124, 124, 124, 76);"
     "border-radius: 15px;"
     "font-family: 'Inter SemiBold';"
     "font-size: 18px;"
@@ -21,15 +21,26 @@ QString inactiveServerButtonStyle =
 
 void Dashboard::initBranches(QString username, int rank) {
     getServers();
-    delete serversLayout;
+
+    if (serversLayout) {
+        QLayoutItem* item;
+        while ((item = serversLayout->takeAt(0))) {
+            delete item->widget();
+            delete item;
+        }
+        delete serversLayout;
+    }
+
     serversLayout = new QVBoxLayout(ui->Branches);
-    serversLayout->setGeometry(QRect(0, 0, 130, 270));
+    serversLayout->setAlignment(Qt::AlignTop);
     serversLayout->setContentsMargins(5, 10, 5, 0);
+    serversLayout->setSpacing(10);
 
     for (auto server : serverHandler->servers) {
         QPushButton* button = new QPushButton(QString::fromStdString(server.name));
         button->setObjectName(QString::fromStdString("server_" + server.name + "_button"));
-        button->setFixedSize(120, 40);
+        button->setCursor(Qt::PointingHandCursor);
+        button->setFixedSize(120, 35);
 
         if (server.id == 1) {
             button->setStyleSheet(activeServerButtonStyle);
@@ -40,12 +51,8 @@ void Dashboard::initBranches(QString username, int rank) {
         connect(button, &QPushButton::clicked, this, [this, button, username, rank, server]() {
             for (int i = 0; i < serversLayout->count(); ++i) {
                 QLayoutItem* item = serversLayout->itemAt(i);
-                if (item) {
-                    QPushButton* btn = qobject_cast<QPushButton*>(item->widget());
-                    if (btn) {
-                        btn->setStyleSheet(inactiveServerButtonStyle);
-                    }
-                }
+                QPushButton* btn = qobject_cast<QPushButton*>(item->widget());
+                btn->setStyleSheet(inactiveServerButtonStyle);
             }
 
             button->setStyleSheet(activeServerButtonStyle);
@@ -53,12 +60,13 @@ void Dashboard::initBranches(QString username, int rank) {
             std::cout << "Button for server " << server.id << " clicked." << std::endl;
         });
 
-        serversLayout->addWidget(button, 10, Qt::AlignTop);
+        serversLayout->addWidget(button);
     }
 
     if (!serverHandler->servers.empty()) {
         initButtonUI(username, rank, serverHandler->servers[0]);
     }
+
 }
 
 void Dashboard::getServers() {

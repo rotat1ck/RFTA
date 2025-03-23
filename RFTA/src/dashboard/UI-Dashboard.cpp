@@ -31,6 +31,11 @@ void Dashboard::disableStopButton() {
 }
 
 void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Server server) {
+    if (server.id <= 0) {
+        qDebug() << "Invalid server";
+        return;
+    }
+
     bool isServerActive = server.status;
     QString consoleTemplate;
     if (privileges >= 4) {
@@ -39,6 +44,11 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
         consoleTemplate = username + "@" + QString::fromStdString(server.name) + ":~$ ";
     }
     ui->ConsoleUsername->setText(consoleTemplate);
+
+    ui->StartButton->setEnabled(false);
+    ui->StopButton->setEnabled(false);
+    ui->StartButton->setStyleSheet(inactiveStartButtonStyle);
+    ui->StopButton->setStyleSheet(inactiveStopButtonStyle);
 
     switch(privileges) {
         case 2: {
@@ -80,8 +90,10 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
 
             ui->EditMPButton->setEnabled(true);
             ui->EditMPButton->setStyleSheet(activeEditButtonStyle);
-            ui->EditServerButton->setEnabled(true);
-            ui->EditServerButton->setStyleSheet(activeEditButtonStyle);
+            // ui->EditServerButton->setEnabled(true);
+            // ui->EditServerButton->setStyleSheet(activeEditButtonStyle);
+
+            break;
         }
     }
 }

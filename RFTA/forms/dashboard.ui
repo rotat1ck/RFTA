@@ -314,6 +314,12 @@ color: rgba(50, 50, 50, 128);
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="toolTip">
+       <string>This feature isn't available yet</string>
+      </property>
+      <property name="whatsThis">
+       <string/>
+      </property>
       <property name="styleSheet">
        <string notr="true">background: rgba(217, 217, 217, 128);
 border-radius: 15px;

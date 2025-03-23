@@ -7,8 +7,9 @@ ServerHandler* serverHandlerEntry) : QWidget(parent),
 {
     ui->setupUi(this);
     serversLayout = new QVBoxLayout(ui->Branches);
-    serversLayout->setGeometry(QRect(0, 0, 130, 270));
+    serversLayout->setAlignment(Qt::AlignTop);
     serversLayout->setContentsMargins(5, 10, 5, 0);
+    serversLayout->setSpacing(10);
 }
 
 Dashboard::~Dashboard() {
