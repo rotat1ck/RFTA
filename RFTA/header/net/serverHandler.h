@@ -38,7 +38,11 @@ public:
         cl.set_connection_timeout(0, 500000);
     }
 
-    Result getServers(std::string tokenEntry);
+    bool checkToken();
+
+    Result getServers();
+
+    Result getModPack(int serverId);
 };
 
 #endif // SERVERHANDLER_H

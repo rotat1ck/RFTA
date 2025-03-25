@@ -4,6 +4,11 @@ from app.utils.jwtdec import token_required, create_token
 
 users_bp = Blueprint('users', __name__)
 
+@users_bp.route('/healthcheck', methods=['GET'])
+@token_required
+def checkToken(user):
+    return jsonify({'message': 'I am alive'}), 200
+
 @users_bp.route('/login', methods=['GET'])
 def loginUser():
     username = request.args.get('username')

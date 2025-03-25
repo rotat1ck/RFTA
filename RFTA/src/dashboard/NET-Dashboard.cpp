@@ -69,32 +69,53 @@ void Dashboard::initBranches(QString username, int rank) {
 
 }
 
+void Dashboard::uptadeServerList() {
+    auto result = serverHandler->getServers();
+    json response = json::parse(result.message);
+    if (result.status != 200) {
+        emit S_Infobar(this, response["error"], true);
+    } else {
+        for (auto server : response["servers"]) {
+            ServerHandler::Server info;
+            info.id = server["id"];
+            info.name = server["name"];
+            info.core = server.contains("core") && !server["core"].is_null() ? server["core"].get<std::string>() : "";
+            info.version = server.contains("version") && !server["version"].is_null() ? server["version"].get<std::string>() : "";
+            info.status = server["status"].get<bool>();
+
+            serverHandler->servers.push_back(info);
+        }
+    }
+}
+
 void Dashboard::getServers() {
     serverHandler->servers.clear();
+    serverHandler->token = loginHandler->token;
     try {
-        if (loginHandler->checkServerStatus()) {
-            auto result = serverHandler->getServers(loginHandler->token);
-            json response = json::parse(result.message);
-            if (result.status != 200) {
-                emit S_Infobar(this, response["error"], true);
-            } else {
-                for (auto server : response["servers"]) {
-                    ServerHandler::Server info;
-                    info.id = server["id"];
-                    info.name = server["name"];
-                    info.core = server.contains("core") && !server["core"].is_null() ? server["core"].get<std::string>() : "";
-                    info.version = server.contains("version") && !server["version"].is_null() ? server["version"].get<std::string>() : "";
-                    info.status = server["status"].get<bool>();
-
-                    serverHandler->servers.push_back(info);
+        if (serverHandler->checkToken()) {
+            uptadeServerList();
+        } else if (loginHandler->checkServerStatus()) {
+            int tries = 0;
+            bool isSuccess = false;
+            while (tries < 3) {
+                emit S_UpdateToken();
+                tries++;
+                if (serverHandler->checkToken()) {
+                    isSuccess = true;
+                    break;
                 }
+            }
+            if (isSuccess) {
+                uptadeServerList();
+            } else {
+                emit S_Infobar(this, "Failed to update token", true);
             }
         } else {
             emit S_Infobar(this, "Connection failed", true);
         }
     } catch (json::parse_error& ex) {
         emit S_Infobar(this, "Unexpected error", true);
-    } catch (std::exception ex) {
+    } catch (std::exception& ex) {
         emit S_Infobar(this, "Unexpected error", true);
     }
 }

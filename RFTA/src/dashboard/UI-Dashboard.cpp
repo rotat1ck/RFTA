@@ -50,6 +50,27 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
     ui->StartButton->setStyleSheet(inactiveStartButtonStyle);
     ui->StopButton->setStyleSheet(inactiveStopButtonStyle);
 
+    disconnect(ui->StartButton, &QPushButton::clicked, this, nullptr);
+    disconnect(ui->StopButton, &QPushButton::clicked, this, nullptr);
+    disconnect(ui->EditMPButton, &QPushButton::clicked, this, nullptr);
+    disconnect(ui->EditServerButton, &QPushButton::clicked, this, nullptr);
+
+    connect(ui->StartButton, &QPushButton::clicked, this, [this, server]() {
+        startButtonHandler(server.id);
+    });
+
+    connect(ui->StopButton, &QPushButton::clicked, this, [this, server]() {
+        stopButtonHandler(server.id);
+    });
+
+    connect(ui->EditMPButton, &QPushButton::clicked, this, [this, server]() {
+        editMPButtonHandler(server.id);
+    });
+
+    connect(ui->EditServerButton, &QPushButton::clicked, this, [this, server]() {
+        editServerButtonHandler(server.id);
+    });
+
     switch(privileges) {
         case 2: {
             if (!isServerActive) {
@@ -98,20 +119,21 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
     }
 }
 
-void Dashboard::on_StartButton_clicked() {
+void Dashboard::startButtonHandler(int serverId) {
     disableStartButton();
     enableStopButton();
 }
 
-void Dashboard::on_StopButton_clicked() {
+void Dashboard::stopButtonHandler(int serverId) {
     disableStopButton();
     enableStartButton();
 }
 
-void Dashboard::on_EditServerButton_clicked() {
-    qDebug() << "Edit server";
+void Dashboard::editMPButtonHandler(int serverId) {
+    emit S_ChangeForm(2);
+    emit S_EditMPSendData(serverId);
 }
 
-void Dashboard::on_EditMPButton_clicked() {
-    qDebug() << "Edit MP";
+void Dashboard::editServerButtonHandler(int serverId) {
+
 }

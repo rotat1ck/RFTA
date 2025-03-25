@@ -3,7 +3,7 @@
 void MainWindow::setupLayout() {
     login = new Login(this, netLoginHandler);
     dashboard = new Dashboard(this, netLoginHandler, netServerHandler);
-    mods = new Mods(this);
+    mods = new Mods(this, netLoginHandler, netServerHandler);
 
     layout = new QStackedLayout;
     layout->addWidget(login);
@@ -20,6 +20,7 @@ void MainWindow::setupLayout() {
 void MainWindow::setupConnects() {
     loginPageConnects();
     dashboardPageConnects();
+    modsPageConnects();
 }
 
 void MainWindow::loginPageConnects() {
@@ -35,7 +36,25 @@ void MainWindow::loginPageConnects() {
 }
 
 void MainWindow::dashboardPageConnects() {
+    // Show loading screen
+    connect(dashboard, &Dashboard::S_ShowLoadingScreen, this, &MainWindow::showLoadScreen);
+    connect(dashboard, &Dashboard::S_HideLoadingScreen, this, &MainWindow::hideLoadScreen);
+
     // Change form
     connect(dashboard, &Dashboard::S_ChangeForm, this, &MainWindow::changeForm);
     connect(dashboard, &Dashboard::S_Infobar, this, &MainWindow::infobarDisplay);
+
+    // EditMP
+    connect(dashboard, &Dashboard::S_EditMPSendData, mods, &Mods::receiveServerId);
+
+    // Update token
+    connect(dashboard, &Dashboard::S_UpdateToken, this, &MainWindow::updateToken);
+}
+
+void MainWindow::modsPageConnects() {
+    // Change form
+    connect(mods, &Mods::S_ChangeForm, this, &MainWindow::changeForm);
+
+    // Update token
+    connect(mods, &Mods::S_UpdateToken, this, &MainWindow::updateToken);
 }

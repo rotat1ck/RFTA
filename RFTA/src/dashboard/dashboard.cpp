@@ -1,9 +1,8 @@
 #include "../../header/dashboard/dashboard.h"
 #include "ui_dashboard.h"
 
-Dashboard::Dashboard(QWidget *parent, LoginHandler* loginHandlerEntry,
-ServerHandler* serverHandlerEntry) : QWidget(parent),
-    ui(new Ui::Dashboard), loginHandler(loginHandlerEntry), serverHandler(serverHandlerEntry)
+Dashboard::Dashboard(QWidget *parent, LoginHandler* loginHandlerEntry, ServerHandler* serverHandlerEntry)
+    : QWidget(parent), ui(new Ui::Dashboard), loginHandler(loginHandlerEntry), serverHandler(serverHandlerEntry)
 {
     ui->setupUi(this);
     serversLayout = new QVBoxLayout(ui->Branches);

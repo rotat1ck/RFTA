@@ -24,6 +24,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void updateToken();
 
 private slots:
     // - - NET - -
@@ -37,6 +38,7 @@ private slots:
     void setupConnects();
     void loginPageConnects();
     void dashboardPageConnects();
+    void modsPageConnects();
 
     // - - UI - -
     void changeForm(int formId);

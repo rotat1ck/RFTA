@@ -29,6 +29,9 @@ void MainWindow::changeForm(int formId) {
         } case 1: {
             layout->setCurrentWidget(dashboard);
             break;
+        } case 2: {
+            layout->setCurrentWidget(mods);
+            break;
         }
     }
     reInitializePopUps();
