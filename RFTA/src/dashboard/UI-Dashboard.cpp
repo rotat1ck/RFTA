@@ -130,8 +130,20 @@ void Dashboard::stopButtonHandler(int serverId) {
 }
 
 void Dashboard::editMPButtonHandler(int serverId) {
-    emit S_ChangeForm(2);
-    emit S_EditMPSendData(serverId);
+    emit S_ShowLoadingScreen(this);
+    QTimer::singleShot(400, this, [this, serverId]() {
+        emit S_EditMPSendData(serverId);
+    });
+}
+
+void Dashboard::editMPAnswerHandler(std::string message, bool isFailure) {
+    if (isFailure) {
+        emit S_HideLoadingScreen(this);
+        emit S_Infobar(this, message, true);
+    } else {
+        emit S_HideLoadingScreen(this);
+        emit S_ChangeForm(2);
+    }
 }
 
 void Dashboard::editServerButtonHandler(int serverId) {

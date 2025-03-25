@@ -21,5 +21,42 @@ void Mods::on_BackButton2_clicked() {
 }
 
 void Mods::receiveServerId(int serverId) {
-    qDebug() << serverId;
+    serverHandler->token = loginHandler->token;
+    emit S_RequestResult("NUH UH", true);
+    return;
+    try {
+        if (serverHandler->checkToken()) {
+            getModList(serverId);
+        } else if (loginHandler->checkServerStatus()) {
+            int tries = 0;
+            bool isSuccess = false;
+            while (tries < 3) {
+                emit S_UpdateToken();
+                tries++;
+                if (serverHandler->checkToken()) {
+                    isSuccess = true;
+                    break;
+                }
+            }
+            if (isSuccess) {
+                getModList(serverId);
+            } else {
+                emit S_RequestResult("Failed to update token", true);
+            }
+        } else {
+            emit S_RequestResult("Connection failed", true);
+        }
+    } catch (json::parse_error& ex) {
+        emit S_RequestResult("Unexpected error", true);
+    } catch (std::exception& ex) {
+        emit S_RequestResult("Unexpected error", true);
+    }
+}
+
+void Mods::getModList(int serverId) {
+    emit S_RequestResult("", false);
+}
+
+void Mods::loadModList(int serverId) {
+    emit S_RequestResult("", false);
 }

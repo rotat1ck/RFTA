@@ -2,6 +2,7 @@
 #define DASHBOARD_H
 
 #include <QWidget>
+#include <QTimer>
 #include <QVBoxLayout>
 
 #include "../net/loginHandler.h"
@@ -21,6 +22,7 @@ public:
                        ServerHandler* serverHandlerEntry = nullptr);
 
     void initSequence(QString username, int rank);
+    void editMPAnswerHandler(std::string message, bool isFailure);
     ~Dashboard();
 
 signals:

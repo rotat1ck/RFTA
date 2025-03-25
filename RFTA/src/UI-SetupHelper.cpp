@@ -46,12 +46,17 @@ void MainWindow::dashboardPageConnects() {
 
     // EditMP
     connect(dashboard, &Dashboard::S_EditMPSendData, mods, &Mods::receiveServerId);
+    connect(mods, &Mods::S_RequestResult, dashboard, &Dashboard::editMPAnswerHandler);
 
     // Update token
     connect(dashboard, &Dashboard::S_UpdateToken, this, &MainWindow::updateToken);
 }
 
 void MainWindow::modsPageConnects() {
+    // Show loading screen
+    connect(mods, &Mods::S_ShowLoadingScreen, this, &MainWindow::showLoadScreen);
+    connect(mods, &Mods::S_HideLoadingScreen, this, &MainWindow::hideLoadScreen);
+
     // Change form
     connect(mods, &Mods::S_ChangeForm, this, &MainWindow::changeForm);
 
