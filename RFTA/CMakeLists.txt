@@ -44,7 +44,7 @@ qt_add_executable(RFTA
 
     # UI Header files
     header/login/login.h
-    header/dashboard/UI-dashboardStyle.h
+    header/dashboard/UI-DashboardStyle.h
     header/dashboard/dashboard.h
     header/dashboard/mods.h
     header/loadScreen/loadingscreen.h
