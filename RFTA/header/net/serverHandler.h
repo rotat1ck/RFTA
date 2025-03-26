@@ -40,6 +40,8 @@ public:
 
     bool checkToken();
 
+    Result getServer(int serverId);
+
     Result getServers();
 
     Result getModPack(int serverId);

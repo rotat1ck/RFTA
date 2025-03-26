@@ -26,6 +26,24 @@ ServerHandler::Result ServerHandler::getServers() {
     }
 }
 
+ServerHandler::Result ServerHandler::getServer(int serverId) {
+    cl.set_default_headers({{"Authorization", "Bearer " + token}});
+
+    std::string endpoint = "api/servers/" + std::to_string(serverId);
+    if (auto res = cl.Get(endpoint)) {
+        return {res->status, res->body};
+    } else {
+        return {0, ""};
+    }
+}
+
 ServerHandler::Result ServerHandler::getModPack(int serverId) {
     cl.set_default_headers({{"Authorization", "Bearer " + token}});
+
+    std::string endpoint = "api/servers/getmp/" + std::to_string(serverId);
+    if (auto res = cl.Get(endpoint)) {
+        return {res->status, res->body};
+    } else {
+        return {0, ""};
+    }
 }

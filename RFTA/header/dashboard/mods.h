@@ -2,6 +2,7 @@
 #define MODS_H
 
 #include <QWidget>
+#include <QVBoxLayout>
 #include <QTimer>
 #include <vector>
 
@@ -34,18 +35,28 @@ signals:
 
 private slots:
     // - - NET - -
-    void loadModList(int serverId);
-    void getModList(int serverId);
+    void getServerData(int serverId);
 
     // - - UI - -
     void on_BackButton1_clicked();
     void on_BackButton2_clicked();
+    void loadModList();
 
 private:
     Ui::Mods *ui;
     LoginHandler* loginHandler;
     ServerHandler* serverHandler;
     std::vector<std::string> modList;
+    QVBoxLayout* modsLayout;
+
+    QString scrollstyle =
+        "QScrollArea { border: none; }"
+        "QScrollBar:vertical { border: none; background: #f0f0f0; width: 10px; }"
+        "QScrollBar::handle:vertical { background: #a0a0a0; min-height: 20px; }"
+        "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { background: none; }"
+        "QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical { background: none; }"
+    ;
+
 };
 
 #endif // MODS_H

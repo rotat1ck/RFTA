@@ -57,7 +57,6 @@ void Dashboard::initBranches(QString username, int rank) {
 
             button->setStyleSheet(activeServerButtonStyle);
             initButtonUI(username, rank, server);
-            std::cout << "Button for server " << server.id << " clicked." << std::endl;
         });
 
         serversLayout->addWidget(button);

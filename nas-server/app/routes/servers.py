@@ -7,10 +7,21 @@ servers_bp = Blueprint('servers', __name__)
 
 @servers_bp.route('/', methods=['GET'])
 @token_required
-def listServers(currentUser):
+def listServers(user):
     servers = Server.query.all()
     return jsonify({"servers": [{"id": server.id, "name": server.name, "status": server.status, "version": server.version, 
                     "core": server.core} for server in servers]}), 200
+    
+@servers_bp.route('/<int:serverId>', methods=['GET'])
+@token_required
+def listServer(user, serverId):
+    server = Server.query.filter_by(id=serverId).first()
+    
+    if server is None:
+        return jsonify({"error": "Server not found"}), 404
+    
+    return jsonify({"server": {"id": server.id, "name": server.name, "status": server.status, "version": server.version, 
+                    "core": server.core}}), 200
 
 
 @servers_bp.route("/addserver", methods=['POST'])
@@ -109,5 +120,17 @@ def changeCore(user, serverId):
 
 @servers_bp.route("/getmp/<int:serverId>", methods=['GET'])
 @token_required
-def getMp(currentUser, serverId):
-    return jsonify({"message": "This endpoint is not implemented yet"}), 501
+def getMp(user, serverId):
+    server = Server.query.filter_by(id=serverId).first()
+    
+    if server is None:
+        return jsonify({"error": "Server not found"}), 404
+    
+    serverDir = os.path.join(current_app.config['SERVERS_URI'], server.name.lower())
+    modsDir = os.path.join(serverDir, 'mods')
+    
+    if not os.path.exists(modsDir):
+        return jsonify({"mods": ""}), 200
+    
+    mods = os.listdir(modsDir)
+    return jsonify({"mods": mods}), 200

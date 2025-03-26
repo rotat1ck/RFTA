@@ -166,6 +166,29 @@ color: #FFFFFF;
 border-radius: 10px;
 </string>
      </property>
+     <widget class="QScrollArea" name="modsScroll">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>480</width>
+        <height>390</height>
+       </rect>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="modsScrollContent">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>480</width>
+         <height>390</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="ActionsSection" native="true">
