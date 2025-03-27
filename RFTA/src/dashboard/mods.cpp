@@ -7,6 +7,11 @@ Mods::Mods(QWidget *parent, LoginHandler* loginHandlerEntry, ServerHandler* serv
     ui->setupUi(this);
     ui->modsScroll->setStyleSheet(scrollstyle);
     modsLayout = new QVBoxLayout(ui->modsScrollContent);
+    modsLayout->setAlignment(Qt::AlignTop);
+    // modsLayout->setContentsMargins(5, 10, 5, 0);
+    // modsLayout->setSpacing(5);
+    ui->LoadJarProgress->setStyleSheet(progressBarStyle);
+    ui->LoadZipProgress->setStyleSheet(progressBarStyle);
 
 }
 
@@ -27,7 +32,7 @@ void Mods::receiveServerId(int serverId) {
     serverHandler->token = loginHandler->token;
     try {
         if (serverHandler->checkToken()) {
-            getServerData(serverId);
+            initModsData(serverId);
         } else if (loginHandler->checkServerStatus()) {
             int tries = 0;
             bool isSuccess = false;
@@ -40,7 +45,7 @@ void Mods::receiveServerId(int serverId) {
                 }
             }
             if (isSuccess) {
-                getServerData(serverId);
+                initModsData(serverId);
             } else {
                 emit S_RequestResult("Failed to update token", true);
             }
@@ -54,7 +59,8 @@ void Mods::receiveServerId(int serverId) {
     }
 }
 
-void Mods::getServerData(int serverId) {
+void Mods::initModsData(int serverId) {
+    currentServerId = serverId;
     auto res = serverHandler->getModPack(serverId);
     if (res.status != 200) {
         emit S_RequestResult("Failed to get modpack", true);
@@ -100,14 +106,76 @@ void Mods::loadModList() {
         QPushButton* button = new QPushButton(modName, this);
         button->setCursor(Qt::PointingHandCursor);
         button->setFixedSize(450, 25);
-        button->setStyleSheet("background: #9B9B9B;");
 
-        connect(button, &QPushButton::clicked, this, [this, mod]() {
-            qDebug() << "Clicked on mod: " + QString::fromStdString(mod);
+
+        if (mod != modList.at(0)) {
+            button->setStyleSheet(inactiveModsButtonStyle);
+        } else {
+            button->setStyleSheet(activeModsButtonStyle);
+        }
+
+        connect(button, &QPushButton::clicked, this, [this, mod, button]() {
+            for (int i = 0; i < modsLayout->count(); ++i) {
+                QLayoutItem* item = modsLayout->itemAt(i);
+                QPushButton* btn = qobject_cast<QPushButton*>(item->widget());
+                btn->setStyleSheet(inactiveModsButtonStyle);
+            }
+
+            button->setStyleSheet(activeModsButtonStyle);
+            currentMod = button;
         });
 
         modsLayout->addWidget(button);
     }
 
     emit S_RequestResult("", false);
+}
+
+void Mods::on_LoadJarButton_clicked() {
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Select .jar file"), "", tr("JAR Files (*.jar)"));
+
+    connect(serverHandler, &ServerHandler::uploadProgress, this, [this](int progress) {
+        ui->LoadJarProgress->setValue(progress);
+    });
+
+    connect(serverHandler, &ServerHandler::uploadFinished, this, [this](bool success) {
+        if (success) {
+            ui->LoadJarProgress->setValue(100);
+            Mods::initModsData(currentServerId);
+            emit S_Infobar(this, "File uploaded successfully", false);
+        } else {
+            emit S_Infobar(this, "Failed to upload the file", true);
+        }
+    });
+
+    if (fileName != "") {
+        serverHandler->loadJar(currentServerId, fileName);
+    } else {
+        emit S_Infobar(this, "Operation canceled", true);
+    }
+}
+
+
+void Mods::on_LoadZipButton_clicked() {
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Select .zip archive"), "", tr("ZIP Archives (*.zip)"));
+
+    connect(serverHandler, &ServerHandler::uploadProgress, this, [this](int progress) {
+        ui->LoadZipProgress->setValue(progress);
+    });
+
+    connect(serverHandler, &ServerHandler::uploadFinished, this, [this](bool success) {
+        if (success) {
+            ui->LoadZipProgress->setValue(100);
+            Mods::initModsData(currentServerId);
+            emit S_Infobar(this, "File uploaded successfully", false);
+        } else {
+            emit S_Infobar(this, "Failed to upload the file", true);
+        }
+    });
+
+    if (fileName != "") {
+        serverHandler->loadZip(currentServerId, fileName);
+    } else {
+        emit S_Infobar(this, "Operation canceled", true);
+    }
 }

@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QPushButton>
+#include <QFileDialog>
+#include <QThread>
 #include <QTimer>
 #include <vector>
 
@@ -35,28 +38,69 @@ signals:
 
 private slots:
     // - - NET - -
-    void getServerData(int serverId);
+    void initModsData(int serverId);
 
     // - - UI - -
     void on_BackButton1_clicked();
     void on_BackButton2_clicked();
     void loadModList();
 
+    void on_LoadJarButton_clicked();
+
+    void on_LoadZipButton_clicked();
+
 private:
     Ui::Mods *ui;
+    int currentServerId;
     LoginHandler* loginHandler;
     ServerHandler* serverHandler;
+    QPushButton* currentMod;
     std::vector<std::string> modList;
     QVBoxLayout* modsLayout;
 
     QString scrollstyle =
         "QScrollArea { border: none; }"
-        "QScrollBar:vertical { border: none; background: #f0f0f0; width: 10px; }"
-        "QScrollBar::handle:vertical { background: #a0a0a0; min-height: 20px; }"
-        "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { background: none; }"
-        "QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical { background: none; }"
+        "QScrollBar:vertical { border: none; background: #D9D9D9; width: 10px; }"
+        "QScrollBar::handle:vertical { background: #707070; min-height: 20px; }"
     ;
 
+    QString progressBarStyle =
+        "QProgressBar {"
+            "background: #373333;"
+            "border-radius: 5px;"
+            "font-family: 'Inter SemiBold';"
+            "font-size: 18px;"
+            "line-height: 22px;"
+            "color: #FFFFFF;"
+        "}"
+        "QProgressBar::chunk {"
+        "    background: #707070;"
+        "    border-radius: 5px;"
+        "}"
+
+    ;
+
+    QString activeModsButtonStyle =
+        "background: rgba(155, 155, 155, 1);"
+        "border-radius: 5px;"
+        "padding-left: 5px;"
+        "font-family: 'Inter SemiBold';"
+        "font-size: 18px;"
+        "line-height: 22px;"
+        "text-align:left;"
+        "color: rgba(0, 0, 0, 1);"
+    ;
+
+    QString inactiveModsButtonStyle =
+        "background: rgba(124, 124, 124, 1);"
+        "border-radius: 5px;"
+        "padding-left: 5px;"
+        "font-family: 'Inter SemiBold';"
+        "font-size: 18px;"
+        "line-height: 22px;"
+        "text-align:left;"
+        "color: rgba(0, 0, 0, 76);"
+    ;
 };
 
 #endif // MODS_H
