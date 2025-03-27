@@ -9,6 +9,8 @@ Dashboard::Dashboard(QWidget *parent, LoginHandler* loginHandlerEntry, ServerHan
     serversLayout->setAlignment(Qt::AlignTop);
     serversLayout->setContentsMargins(5, 10, 5, 0);
     serversLayout->setSpacing(10);
+
+
 }
 
 Dashboard::~Dashboard() {

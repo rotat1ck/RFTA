@@ -8,11 +8,8 @@ Mods::Mods(QWidget *parent, LoginHandler* loginHandlerEntry, ServerHandler* serv
     ui->modsScroll->setStyleSheet(scrollstyle);
     modsLayout = new QVBoxLayout(ui->modsScrollContent);
     modsLayout->setAlignment(Qt::AlignTop);
-    // modsLayout->setContentsMargins(5, 10, 5, 0);
-    // modsLayout->setSpacing(5);
     ui->LoadJarProgress->setStyleSheet(progressBarStyle);
     ui->LoadZipProgress->setStyleSheet(progressBarStyle);
-
 }
 
 Mods::~Mods() {
@@ -60,7 +57,10 @@ void Mods::receiveServerId(int serverId) {
 }
 
 void Mods::initModsData(int serverId) {
+    ui->LoadJarProgress->setValue(0);
+    ui->LoadZipProgress->setValue(0);
     currentServerId = serverId;
+
     auto res = serverHandler->getModPack(serverId);
     if (res.status != 200) {
         emit S_RequestResult("Failed to get modpack", true);

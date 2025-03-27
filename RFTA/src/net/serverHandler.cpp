@@ -48,6 +48,16 @@ ServerHandler::Result ServerHandler::getModPack(int serverId) {
     }
 }
 
+ServerHandler::Result ServerHandler::loadJar(int serverId, QString filePath) {
+    loadMods(QUrl("https://77.37.246.6:7777/api/controller/loadjar/" + QString::number(serverId)), filePath, "mod");
+    return {0, ""};
+}
+
+ServerHandler::Result ServerHandler::loadZip(int serverId, QString filePath) {
+    loadMods(QUrl("https://77.37.246.6:7777/api/controller/loadzip/" + QString::number(serverId)), filePath, "zip");
+    return {0, ""};
+}
+
 void ServerHandler::loadMods(QUrl url, QString filePath, QString modType) {
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -67,12 +77,10 @@ void ServerHandler::loadMods(QUrl url, QString filePath, QString modType) {
     QHttpPart filePart;
     filePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/octet-stream"));
     filePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"" + modType + "\"; filename=\"" + QFileInfo(file).fileName() + "\""));
-    qDebug() << QVariant("form-data; name=\"" + modType + "\"; filename=\"" + QFileInfo(file).fileName() + "\"");
     filePart.setBody(file.readAll());
     multiPart->append(filePart);
 
     try {
-        qDebug() << url;
         QNetworkReply* reply = manager->post(request, multiPart);
 
         if (!reply) {
@@ -104,14 +112,4 @@ void ServerHandler::loadMods(QUrl url, QString filePath, QString modType) {
     }
 
     return;
-}
-
-ServerHandler::Result ServerHandler::loadJar(int serverId, QString filePath) {
-    loadMods(QUrl("https://77.37.246.6:7777/api/controller/loadjar/" + QString::number(serverId)), filePath, "mod");
-    return {0, ""};
-}
-
-ServerHandler::Result ServerHandler::loadZip(int serverId, QString filePath) {
-    loadMods(QUrl("https://77.37.246.6:7777/api/controller/loadzip/" + QString::number(serverId)), filePath, "zip");
-    return {0, ""};
 }

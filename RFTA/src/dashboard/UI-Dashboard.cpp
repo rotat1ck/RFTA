@@ -54,6 +54,7 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
     disconnect(ui->StopButton, &QPushButton::clicked, this, nullptr);
     disconnect(ui->EditMPButton, &QPushButton::clicked, this, nullptr);
     disconnect(ui->EditServerButton, &QPushButton::clicked, this, nullptr);
+    disconnect(ui->ConsoleInput, &QLineEdit::returnPressed, this, nullptr);
 
     connect(ui->StartButton, &QPushButton::clicked, this, [this, server]() {
         startButtonHandler(server.id);
@@ -69,6 +70,10 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
 
     connect(ui->EditServerButton, &QPushButton::clicked, this, [this, server]() {
         editServerButtonHandler(server.id);
+    });
+
+    connect(ui->ConsoleInput, &QLineEdit::returnPressed, this, [this, server]() {
+        addTextConsoleLayout(ui->ConsoleInput->text());
     });
 
     switch(privileges) {
@@ -148,4 +153,36 @@ void Dashboard::editMPAnswerHandler(std::string message, bool isFailure) {
 
 void Dashboard::editServerButtonHandler(int serverId) {
 
+}
+
+void Dashboard::addTextConsoleLayout(QString text) {
+    QLabel* textLabel = new QLabel(text);
+    // textLabel->setFixedWidth(530);
+    textLabel->setWordWrap(true);
+
+    QVBoxLayout* currentLayout = qobject_cast<QVBoxLayout*>(ui->ConsoleScrollContent->layout());
+    if (currentLayout) {
+        currentLayout->addWidget(textLabel);
+    } else {
+        qDebug() << "No layout found in ConsoleOutputHolder.";
+        delete textLabel;
+    }
+}
+
+void Dashboard::setConsoleLayout(int serverId) {
+    if (serversConsoleLayout.contains(serverId)) {
+        QLayout* oldLayout = ui->ConsoleScrollContent->layout();
+        if (oldLayout) {
+            // Remove all widgets from the old layout
+            QLayoutItem* item;
+            while ((item = oldLayout->takeAt(0))) {
+                delete item->widget(); // Delete the widget
+                delete item; // Delete the layout item
+            }
+        }
+
+        ui->ConsoleScrollContent->setLayout(serversConsoleLayout.value(serverId));
+    } else {
+        qDebug() << "No layout found for server ID:" << serverId;
+    }
 }

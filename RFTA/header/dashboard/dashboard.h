@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <vector>
+#include <QMap>
 
 #include "../net/loginHandler.h"
 #include "../net/serverHandler.h"
@@ -40,6 +42,7 @@ signals:
 private slots:
     // - - NET - -
     void initBranches(QString username, int rank);
+    void initServersConsoleLayout();
     void getServers();
     void uptadeServerList();
 
@@ -50,18 +53,24 @@ private slots:
     void disableStartButton();
     void enableStopButton();
     void disableStopButton();
+
     void on_ExitButton1_clicked();
     void on_ExitButton2_clicked();
+
     void startButtonHandler(int serverId);
     void stopButtonHandler(int serverId);
     void editMPButtonHandler(int serverId);
     void editServerButtonHandler(int serverId);
+    void setConsoleLayout(int serverId);
+    void addTextConsoleLayout(QString text);
+
 
 private:
     Ui::Dashboard *ui;
     LoginHandler* loginHandler;
     ServerHandler* serverHandler;
     QVBoxLayout* serversLayout;
+    QMap<int, QVBoxLayout*> serversConsoleLayout;
 };
 
 #endif // DASHBOARD_H

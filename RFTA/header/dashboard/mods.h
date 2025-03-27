@@ -5,8 +5,6 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QFileDialog>
-#include <QThread>
-#include <QTimer>
 #include <vector>
 
 #include "../net/loginHandler.h"

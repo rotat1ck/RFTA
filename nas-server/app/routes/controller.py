@@ -5,6 +5,11 @@ import os, zipfile
 
 controller_bp = Blueprint('controller', __name__)
 
+@controller_bp.route('/execute/<int:serverId>', methods=['POST'])
+@token_required
+def execute_command(user, serverId):
+    return jsonify({"message": "This feature is not yet implemented"}), 418
+
 @controller_bp.route('/startserver/<int:serverId>', methods=['POST'])
 @token_required
 def start_server(user, serverId):
@@ -22,6 +27,7 @@ def start_server(user, serverId):
     return jsonify({"message": "Server started"}), 200
 
 @controller_bp.route('/stopserver/<int:serverId>', methods=['POST'])
+@token_required
 def stop_server(user, serverId):
     server = Server.query.get(serverId)
     if user.role < 3:
@@ -35,6 +41,11 @@ def stop_server(user, serverId):
     db.session.commit()
 
     return jsonify({"message": "Server stopped"}), 200
+
+@controller_bp.route('/restartserver/<int:serverId>', methods=['POST'])
+@token_required
+def restart_server(user, serverId):
+    return jsonify({"message": "This feature is not yet implemented"}), 418
 
 @controller_bp.route("/loadjar/<int:serverId>", methods=['POST'])
 @token_required

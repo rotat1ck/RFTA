@@ -21,6 +21,7 @@ QString inactiveServerButtonStyle =
 
 void Dashboard::initBranches(QString username, int rank) {
     getServers();
+    initServersConsoleLayout();
 
     if (serversLayout) {
         QLayoutItem* item;
@@ -53,6 +54,7 @@ void Dashboard::initBranches(QString username, int rank) {
                 QLayoutItem* item = serversLayout->itemAt(i);
                 QPushButton* btn = qobject_cast<QPushButton*>(item->widget());
                 btn->setStyleSheet(inactiveServerButtonStyle);
+                this->setConsoleLayout(server.id);
             }
 
             button->setStyleSheet(activeServerButtonStyle);
@@ -66,25 +68,6 @@ void Dashboard::initBranches(QString username, int rank) {
         initButtonUI(username, rank, serverHandler->servers[0]);
     }
 
-}
-
-void Dashboard::uptadeServerList() {
-    auto result = serverHandler->getServers();
-    json response = json::parse(result.message);
-    if (result.status != 200) {
-        emit S_Infobar(this, response["error"], true);
-    } else {
-        for (auto server : response["servers"]) {
-            ServerHandler::Server info;
-            info.id = server["id"];
-            info.name = server["name"];
-            info.core = server.contains("core") && !server["core"].is_null() ? server["core"].get<std::string>() : "";
-            info.version = server.contains("version") && !server["version"].is_null() ? server["version"].get<std::string>() : "";
-            info.status = server["status"].get<bool>();
-
-            serverHandler->servers.push_back(info);
-        }
-    }
 }
 
 void Dashboard::getServers() {
@@ -116,5 +99,39 @@ void Dashboard::getServers() {
         emit S_Infobar(this, "Unexpected error", true);
     } catch (std::exception& ex) {
         emit S_Infobar(this, "Unexpected error", true);
+    }
+}
+
+void Dashboard::uptadeServerList() {
+    auto result = serverHandler->getServers();
+    json response = json::parse(result.message);
+    if (result.status != 200) {
+        emit S_Infobar(this, response["error"], true);
+    } else {
+        for (auto server : response["servers"]) {
+            ServerHandler::Server info;
+            info.id = server["id"];
+            info.name = server["name"];
+            info.core = server.contains("core") && !server["core"].is_null() ? server["core"].get<std::string>() : "";
+            info.version = server.contains("version") && !server["version"].is_null() ? server["version"].get<std::string>() : "";
+            info.status = server["status"].get<bool>();
+
+            serverHandler->servers.push_back(info);
+        }
+    }
+}
+
+void Dashboard::initServersConsoleLayout() {
+    serversConsoleLayout.clear();
+    auto servers = serverHandler->servers;
+
+    for (auto server : servers) {
+        QVBoxLayout* serverOutputLayout = new QVBoxLayout();
+        serverOutputLayout->setAlignment(Qt::AlignBottom);
+        serversConsoleLayout.insert(server.id, serverOutputLayout);
+    }
+
+    if (!serversConsoleLayout.isEmpty()) {
+        ui->ConsoleScrollContent->setLayout(serversConsoleLayout.begin().value());
     }
 }
