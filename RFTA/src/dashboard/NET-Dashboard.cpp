@@ -37,6 +37,8 @@ void Dashboard::initBranches(QString username, int rank) {
     serversLayout->setContentsMargins(5, 10, 5, 0);
     serversLayout->setSpacing(10);
 
+    ui->ConsoleScroll->setWidgetResizable(true);
+
     for (auto server : serverHandler->servers) {
         QPushButton* button = new QPushButton(QString::fromStdString(server.name));
         button->setObjectName(QString::fromStdString("server_" + server.name + "_button"));

@@ -72,7 +72,7 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
         editServerButtonHandler(server.id);
     });
 
-    connect(ui->ConsoleInput, &QLineEdit::returnPressed, this, [this, server]() {
+    connect(ui->ConsoleInput, &QLineEdit::returnPressed, this, [this]() {
         addTextConsoleLayout(ui->ConsoleInput->text());
     });
 
@@ -155,16 +155,37 @@ void Dashboard::editServerButtonHandler(int serverId) {
 
 }
 
+QString Dashboard::insertLineBreaks(QString text, int maxWidth) {
+    QFontMetrics fm(ui->ConsoleScrollContent->font());
+    QString result;
+    QString currentLine;
+    for (QChar& ch : text) {
+        currentLine += ch;
+        if (fm.horizontalAdvance(currentLine) > maxWidth) {
+            result += currentLine.left(currentLine.length() - 1) + "\n";
+            currentLine = ch;
+        }
+    }
+
+    if (!currentLine.isEmpty()) {
+        result += currentLine;
+    }
+
+    return result;
+}
+
 void Dashboard::addTextConsoleLayout(QString text) {
+    text = insertLineBreaks(text, ui->ConsoleScroll->width() - 20);
+
     QLabel* textLabel = new QLabel(text);
-    // textLabel->setFixedWidth(530);
     textLabel->setWordWrap(true);
+    textLabel->setFixedWidth(ui->ConsoleScroll->width() - 20);
 
     QVBoxLayout* currentLayout = qobject_cast<QVBoxLayout*>(ui->ConsoleScrollContent->layout());
     if (currentLayout) {
         currentLayout->addWidget(textLabel);
     } else {
-        qDebug() << "No layout found in ConsoleOutputHolder.";
+        qDebug() << "No layout found in ConsoleScrollContent.";
         delete textLabel;
     }
 }
@@ -173,11 +194,10 @@ void Dashboard::setConsoleLayout(int serverId) {
     if (serversConsoleLayout.contains(serverId)) {
         QLayout* oldLayout = ui->ConsoleScrollContent->layout();
         if (oldLayout) {
-            // Remove all widgets from the old layout
             QLayoutItem* item;
             while ((item = oldLayout->takeAt(0))) {
-                delete item->widget(); // Delete the widget
-                delete item; // Delete the layout item
+                delete item->widget();
+                delete item;
             }
         }
 

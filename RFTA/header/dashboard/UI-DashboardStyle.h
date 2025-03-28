@@ -47,4 +47,11 @@ QString inactiveStopButtonStyle =
     "color: rgba(50, 50, 50, 128);"
 ;
 
+QString consoleTextStyle =
+    "font-family: 'Inter SemiBold';"
+    "font-size: 15px;"
+    "line-height: 17px;"
+    "color: #CDCDCD;"
+;
+
 #endif // UI_DASHBOARDSTYLE_H

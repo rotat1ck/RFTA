@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <vector>
 #include <QMap>
+#include <QScrollBar>
 
 #include "../net/loginHandler.h"
 #include "../net/serverHandler.h"
@@ -62,6 +63,7 @@ private slots:
     void editMPButtonHandler(int serverId);
     void editServerButtonHandler(int serverId);
     void setConsoleLayout(int serverId);
+    QString insertLineBreaks(QString text, int maxLineLength);
     void addTextConsoleLayout(QString text);
 
 
