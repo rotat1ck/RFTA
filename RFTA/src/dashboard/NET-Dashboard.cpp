@@ -1,27 +1,10 @@
 #include "../../header/dashboard/dashboard.h"
 #include "ui_dashboard.h"
 
-QString activeServerButtonStyle =
-    "background: rgba(155, 155, 155, 1);"
-    "border-radius: 15px;"
-    "font-family: 'Inter SemiBold';"
-    "font-size: 18px;"
-    "line-height: 22px;"
-    "color: rgba(0, 0, 0, 1);"
-;
-
-QString inactiveServerButtonStyle =
-    "background: rgba(124, 124, 124, 76);"
-    "border-radius: 15px;"
-    "font-family: 'Inter SemiBold';"
-    "font-size: 18px;"
-    "line-height: 22px;"
-    "color: rgba(0, 0, 0, 76);"
-;
-
 void Dashboard::initBranches(QString username, int rank) {
     getServers();
     initServersConsoleLayout();
+    setConsoleLayout(serversConsoleLayout.begin().key());
 
     if (serversLayout) {
         QLayoutItem* item;
@@ -36,8 +19,6 @@ void Dashboard::initBranches(QString username, int rank) {
     serversLayout->setAlignment(Qt::AlignTop);
     serversLayout->setContentsMargins(5, 10, 5, 0);
     serversLayout->setSpacing(10);
-
-    ui->ConsoleScroll->setWidgetResizable(true);
 
     for (auto server : serverHandler->servers) {
         QPushButton* button = new QPushButton(QString::fromStdString(server.name));
@@ -128,12 +109,14 @@ void Dashboard::initServersConsoleLayout() {
     auto servers = serverHandler->servers;
 
     for (auto server : servers) {
-        QVBoxLayout* serverOutputLayout = new QVBoxLayout();
-        serverOutputLayout->setAlignment(Qt::AlignBottom);
-        serversConsoleLayout.insert(server.id, serverOutputLayout);
-    }
+        QWidget* container = new QWidget();
 
-    if (!serversConsoleLayout.isEmpty()) {
-        ui->ConsoleScrollContent->setLayout(serversConsoleLayout.begin().value());
+        QVBoxLayout* serverOutputLayout = new QVBoxLayout(container);
+        serverOutputLayout->setAlignment(Qt::AlignBottom);
+        container->setLayout(serverOutputLayout);
+
+        int index = ConsoleScrollLayouts->addWidget(container);
+        serversConsoleLayout.insert(server.id, index);
+        qDebug() << server.id << index;
     }
 }

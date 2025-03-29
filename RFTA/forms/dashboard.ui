@@ -446,38 +446,6 @@ color: #CDCDCD;
         </item>
        </layout>
       </widget>
-      <widget class="QScrollArea" name="ConsoleScroll">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>570</width>
-         <height>330</height>
-        </rect>
-       </property>
-       <property name="widgetResizable">
-        <bool>true</bool>
-       </property>
-       <widget class="QWidget" name="ConsoleScrollContent">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>570</width>
-          <height>330</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font-family: 'Inter SemiBold';
-font-size: 15px;
-line-height: 17px;
-
-color: #CDCDCD;
-
-</string>
-        </property>
-       </widget>
-      </widget>
      </widget>
     </widget>
    </widget>

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef UI_DASHBOARDSTYLE_H
-#define UI_DASHBOARDSTYLE_H
+#ifndef DASHBOARDSTYLE_H
+#define DASHBOARDSTYLE_H
 
 QString activeStartButtonStyle =
     "background: rgba(204, 218, 185, 1);"
@@ -54,4 +54,10 @@ QString consoleTextStyle =
     "color: #CDCDCD;"
 ;
 
-#endif // UI_DASHBOARDSTYLE_H
+QString scrollAreaStyle =
+    "QScrollArea { border: none; }"
+    "QScrollBar:vertical { border: none; background: #D9D9D9; width: 10px; }"
+    "QScrollBar::handle:vertical { background: #707070; min-height: 20px; }"
+;
+
+#endif // DASHBOARDSTYLE_H

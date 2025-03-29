@@ -1,6 +1,6 @@
 #include "../../header/dashboard/dashboard.h"
 #include "ui_dashboard.h"
-#include "../../header/dashboard/UI-DashboardStyle.h"
+
 
 void Dashboard::on_ExitButton1_clicked() {
     emit S_ChangeForm(0);
@@ -156,7 +156,7 @@ void Dashboard::editServerButtonHandler(int serverId) {
 }
 
 QString Dashboard::insertLineBreaks(QString text, int maxWidth) {
-    QFontMetrics fm(ui->ConsoleScrollContent->font());
+    QFontMetrics fm(ConsoleScroll->font());
     QString result;
     QString currentLine;
     for (QChar& ch : text) {
@@ -175,34 +175,34 @@ QString Dashboard::insertLineBreaks(QString text, int maxWidth) {
 }
 
 void Dashboard::addTextConsoleLayout(QString text) {
-    text = insertLineBreaks(text, ui->ConsoleScroll->width() - 20);
+    text = insertLineBreaks(text, ConsoleScroll->width() - 20);
 
     QLabel* textLabel = new QLabel(text);
     textLabel->setWordWrap(true);
-    textLabel->setFixedWidth(ui->ConsoleScroll->width() - 20);
+    textLabel->setFixedWidth(ConsoleScroll->width() - 20);
 
-    QVBoxLayout* currentLayout = qobject_cast<QVBoxLayout*>(ui->ConsoleScrollContent->layout());
-    if (currentLayout) {
-        currentLayout->addWidget(textLabel);
-    } else {
-        qDebug() << "No layout found in ConsoleScrollContent.";
+    QWidget* currentWidget = ConsoleScrollLayouts->currentWidget();
+    if (!currentWidget) {
+        qDebug() << "No current widget in QStackedWidget.";
         delete textLabel;
+        return;
     }
+
+    QVBoxLayout* currentLayout = qobject_cast<QVBoxLayout*>(currentWidget->layout());
+    if (!currentLayout) {
+        qDebug() << "No layout found in the current widget.";
+        delete textLabel;
+        return;
+    }
+
+    currentLayout->addWidget(textLabel);
 }
 
 void Dashboard::setConsoleLayout(int serverId) {
     if (serversConsoleLayout.contains(serverId)) {
-        QLayout* oldLayout = ui->ConsoleScrollContent->layout();
-        if (oldLayout) {
-            QLayoutItem* item;
-            while ((item = oldLayout->takeAt(0))) {
-                delete item->widget();
-                delete item;
-            }
-        }
-
-        ui->ConsoleScrollContent->setLayout(serversConsoleLayout.value(serverId));
+        int index = serversConsoleLayout.value(serverId);
+        ConsoleScrollLayouts->setCurrentIndex(index);
     } else {
-        qDebug() << "No layout found for server ID:" << serverId;
+        qDebug() << "No widget found for server ID:" << serverId;
     }
 }

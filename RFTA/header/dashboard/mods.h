@@ -75,7 +75,6 @@ private:
         "    background: #707070;"
         "    border-radius: 5px;"
         "}"
-
     ;
 
     QString activeModsButtonStyle =
