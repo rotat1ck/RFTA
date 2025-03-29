@@ -126,12 +126,30 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
 
 void Dashboard::startButtonHandler(int serverId) {
     disableStartButton();
-    enableStopButton();
+    addTextConsoleLayout("You: start");
+    int res = sendExecuteCommand(serverId, "start");
+    if (res == 200) {
+        ui->StopButton->setToolTip("Cooldown 5 minutes");
+        QTimer::singleShot(3000, this, [this]{
+            enableStopButton();
+        });
+    } else {
+        enableStartButton();
+    }
 }
 
 void Dashboard::stopButtonHandler(int serverId) {
     disableStopButton();
-    enableStartButton();
+    addTextConsoleLayout("You: stop");
+    int res = sendExecuteCommand(serverId, "stop");
+    if (res == 200) {
+        ui->StartButton->setToolTip("Cooldown 5 minutes");
+        QTimer::singleShot(3000, this, [this]{
+            enableStartButton();
+        });
+    } else {
+        enableStopButton();
+    }
 }
 
 void Dashboard::editMPButtonHandler(int serverId) {

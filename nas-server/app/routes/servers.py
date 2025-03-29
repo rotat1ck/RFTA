@@ -34,6 +34,21 @@ def createServer(user):
     if name is None:
         return jsonify({"error": "Server name is required"}), 400
     
+    if not name.isalnum():
+        return jsonify({"error": "Invalid server name"}), 400
+    
+    ip = request.args.get('ip')
+    if ip is None:
+        return jsonify({"error": "Server IP is required"}), 400
+    
+    port = request.args.get('port')
+    if port is None:
+        return jsonify({"error": "Server port is required"}), 400
+    
+    foreign = request.args.get('foreign')
+    if foreign is None:
+        foreign = False
+    
     if Server.query.filter_by(name=name).first():
         return jsonify({"error": "Server with this name already exists"}), 400
     
@@ -44,7 +59,7 @@ def createServer(user):
     if len(servers) >= 5:
         return jsonify({"error": "Maximum number of servers reached"}), 400
     
-    new = Server(name=name, status=False)
+    new = Server(name=name, ip=ip, port=port, status=False, foreign=foreign)
     db.session.add(new)
     db.session.commit()
 

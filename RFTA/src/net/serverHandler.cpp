@@ -15,6 +15,20 @@ bool ServerHandler::checkToken() {
     }
 }
 
+ServerHandler::Result ServerHandler::executeCommand(int serverId, std::string command) {
+    cl.set_default_headers({{"Authorization", "Bearer " + token}});
+    std::string endpoint = "api/controller/execute/" + std::to_string(serverId) + "?command=" + command;
+    if (auto res = cl.Post(endpoint)) {
+        return {res->status, res->body};
+    } else {
+        return {0, ""};
+    }
+}
+
+ServerHandler::Result ServerHandler::restartServer(int serverId) {
+
+}
+
 ServerHandler::Result ServerHandler::getServers() {
     cl.set_default_headers({{"Authorization", "Bearer " + token}});
 

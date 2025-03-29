@@ -22,6 +22,7 @@ void MainWindow::updateToken() {
                 return;
             } else {
                 netServerHandler->token = response["token"];
+                netLoginHandler->token = response["token"];
                 return;
             }
         }

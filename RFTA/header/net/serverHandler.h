@@ -61,6 +61,10 @@ public:
 
     Result getServers();
 
+    Result executeCommand(int serverId, std::string command);
+
+    Result restartServer(int serverId);
+
     Result getModPack(int serverId);
 
     Result loadJar(int serverId, QString filePath);

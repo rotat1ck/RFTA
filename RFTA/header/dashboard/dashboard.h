@@ -49,6 +49,7 @@ private slots:
     void initServersConsoleLayout();
     void getServers();
     void uptadeServerList();
+    int sendExecuteCommand(int serverId, QString command);
 
 
     // - - UI - -

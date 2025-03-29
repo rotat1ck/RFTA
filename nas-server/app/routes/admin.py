@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.models import User, db
+from app.models import User, Server, db
 from app.utils.admindec import admin_only
 
 admin_bp = Blueprint('admin', __name__)
@@ -77,3 +77,27 @@ def pardonUser(requesterUsername, user_id):
     user.banned = False
     db.session.commit()
     return jsonify({"message": "User unbanned successfully"}), 200
+
+@admin_bp.route('/setactive/<int:serverId>', methods=['POST'])
+@admin_only
+def setActive(requesterUsername, serverId):
+    server = Server.query.filter_by(id=serverId).first()
+    if server is None:
+        return jsonify({"error": "Server not found"}), 404
+    
+    server.status = True
+    db.session.commit()
+
+    return jsonify({"message": "Server setted to active"}), 200
+
+@admin_bp.route('/setinactive/<int:serverId>', methods=['POST'])
+@admin_only
+def setInactive(requesterUsername, serverId):
+    server = Server.query.filter_by(id=serverId).first()
+    if server is None:
+        return jsonify({"error": "Server not found"}), 404
+    
+    server.status = False
+    db.session.commit()
+
+    return jsonify({"message": "Server setted to inactive"}), 200

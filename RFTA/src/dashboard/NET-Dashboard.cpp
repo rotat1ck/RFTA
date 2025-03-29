@@ -117,6 +117,43 @@ void Dashboard::initServersConsoleLayout() {
 
         int index = ConsoleScrollLayouts->addWidget(container);
         serversConsoleLayout.insert(server.id, index);
-        qDebug() << server.id << index;
     }
+}
+
+int Dashboard::sendExecuteCommand(int serverId, QString command) {
+    serverHandler->token = loginHandler->token;
+    try {
+        if (serverHandler->checkToken()) {
+            auto res = serverHandler->executeCommand(serverId, command.toUtf8().toStdString());
+            json response = json::parse(res.message);
+            addTextConsoleLayout("Response: " + QString::fromStdString(response["message"]));
+            return res.status;
+        } else if (loginHandler->checkServerStatus()) {
+            int tries = 0;
+            bool isSuccess = false;
+            while (tries < 3) {
+                emit S_UpdateToken();
+                tries++;
+                if (serverHandler->checkToken()) {
+                    isSuccess = true;
+                    break;
+                }
+            }
+            if (isSuccess) {
+                auto res = serverHandler->executeCommand(serverId, command.toUtf8().toStdString());
+                json response = json::parse(res.message);
+                addTextConsoleLayout("Response: " + QString::fromStdString(response["message"]));
+                return res.status;
+            } else {
+                emit S_Infobar(this, "Failed to update token", true);
+            }
+        } else {
+            emit S_Infobar(this, "Connection failed", true);
+        }
+    } catch (json::parse_error& ex) {
+        emit S_Infobar(this, "Unexpected error", true);
+    } catch (std::exception& ex) {
+        emit S_Infobar(this, "Unexpected error", true);
+    }
+    return 0;
 }
