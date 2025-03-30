@@ -47,12 +47,17 @@ private slots:
 
     void on_LoadZipButton_clicked();
 
+    void on_DeleteModButton_clicked();
+
+    void on_SaveAndRestartButton_clicked();
+
 private:
     Ui::Mods *ui;
     int currentServerId;
     LoginHandler* loginHandler;
     ServerHandler* serverHandler;
     QPushButton* currentMod;
+
     std::vector<std::string> modList;
     QVBoxLayout* modsLayout;
 

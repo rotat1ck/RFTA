@@ -59,6 +59,7 @@ void MainWindow::modsPageConnects() {
 
     // Change form
     connect(mods, &Mods::S_ChangeForm, this, &MainWindow::changeForm);
+    connect(mods, &Mods::S_Infobar, this, &MainWindow::infobarDisplay);
 
     // Update token
     connect(mods, &Mods::S_UpdateToken, this, &MainWindow::updateToken);

@@ -207,7 +207,7 @@ color: rgba(255, 255, 255, 128);
 </string>
      </property>
      <property name="text">
-      <string>Build: 25.03/01</string>
+      <string>Build: 25.03/28</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>

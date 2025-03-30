@@ -15,7 +15,7 @@ def execute_command(user, serverId):
         return jsonify({"message": "Server not found"}), 404
 
     command = request.args.get('command')
-    if command is None:
+    if command is None or command == '':
         return jsonify({"message": "Command is required"}), 400
 
     if not checkPermissions(user, command):
@@ -32,16 +32,26 @@ def execute_command(user, serverId):
 def restart_server(user, serverId):
     server = Server.query.get(serverId)
     if server is None:
-        return jsonify({"error": "Server not found"}), 404
+        return jsonify({"message": "Server not found"}), 404
 
     if not checkPermissions(user, 'stop'):
-        return jsonify({"error": "You do not have permission to execute this command"}), 403
+        return jsonify({"message": "You do not have permission to execute this command"}), 403
     
     if server.status == True:
-        execute(user, server, 'stop')
-        start_server(user, server)
+        result = execute(user, server, 'stop')
+        if isinstance(result, tuple) and result[0].is_json:
+            return result
+        
+        user.cooldown = 0
+        db.session.commit()
+        
+        result = start_server(user, server)
+        if isinstance(result, tuple) and result[0].is_json:
+            return result
     else:
-        start_server(user, server)
+        result = start_server(user, server)
+        if isinstance(result, tuple) and result[0].is_json:
+            return result
         
     return jsonify({"message": "Server restarting"}), 200
 
@@ -106,3 +116,30 @@ def loadZip(currentUser, serverId):
     os.remove(filePath)
 
     return jsonify({"message": "Archive loaded successfully"}), 200
+
+
+@controller_bp.route("/deletemod/<int:serverId>", methods=['DELETE'])
+@token_required
+def deleteMod(currentUser, serverId):
+    if currentUser.role < 3:
+        return jsonify({"message": "You don't have permission to delete mods"}), 403
+    
+    mod = request.args.get('mod')
+    if mod is None:
+        return jsonify({"message": "Mod name is required"}), 400
+    
+    server = Server.query.filter_by(id=serverId).first()
+    
+    if server is None:
+        return jsonify({"message": "Server not found"}), 404
+
+    serverDir = os.path.join(current_app.config['SERVERS_URI'], server.name.lower())
+    modsDir = os.path.join(serverDir, 'mods')
+    modPath = os.path.join(modsDir, mod)
+
+    if not os.path.exists(modPath):
+        return jsonify({"message": "Mod not found"}), 404
+
+    os.remove(modPath)
+
+    return jsonify({"message": "Mod deleted successfully"}), 200

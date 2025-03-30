@@ -26,7 +26,14 @@ ServerHandler::Result ServerHandler::executeCommand(int serverId, std::string co
 }
 
 ServerHandler::Result ServerHandler::restartServer(int serverId) {
+    cl.set_default_headers({{"Authorization", "Bearer " + token}});
 
+    std::string endpoint = "api/controller/restartserver/" + std::to_string(serverId);
+    if (auto res = cl.Post(endpoint)) {
+        return {res->status, res->body};
+    } else {
+        return {0, ""};
+    }
 }
 
 ServerHandler::Result ServerHandler::getServers() {
@@ -56,6 +63,16 @@ ServerHandler::Result ServerHandler::getModPack(int serverId) {
 
     std::string endpoint = "api/servers/getmp/" + std::to_string(serverId);
     if (auto res = cl.Get(endpoint)) {
+        return {res->status, res->body};
+    } else {
+        return {0, ""};
+    }
+}
+
+ServerHandler::Result ServerHandler::deleteMod(int serverId, std::string modName) {
+    cl.set_default_headers({{"Authorization", "Bearer " + token}});
+    std::string endpoint = "api/controller/deletemod/" + std::to_string(serverId) + "?mod=" + modName;
+    if (auto res = cl.Delete(endpoint)) {
         return {res->status, res->body};
     } else {
         return {0, ""};

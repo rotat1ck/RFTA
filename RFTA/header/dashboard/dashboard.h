@@ -66,6 +66,7 @@ private slots:
     void stopButtonHandler(int serverId);
     void editMPButtonHandler(int serverId);
     void editServerButtonHandler(int serverId);
+    void consoleInputHandler(int serverId);
 
     QString insertLineBreaks(QString text, int maxLineLength);
     void addTextConsoleLayout(QString text);

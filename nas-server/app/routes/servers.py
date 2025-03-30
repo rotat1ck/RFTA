@@ -34,9 +34,6 @@ def createServer(user):
     if name is None:
         return jsonify({"error": "Server name is required"}), 400
     
-    if not name.isalnum():
-        return jsonify({"error": "Invalid server name"}), 400
-    
     ip = request.args.get('ip')
     if ip is None:
         return jsonify({"error": "Server IP is required"}), 400

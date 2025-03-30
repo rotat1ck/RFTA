@@ -179,3 +179,26 @@ void Mods::on_LoadZipButton_clicked() {
         emit S_Infobar(this, "Operation canceled", true);
     }
 }
+
+void Mods::on_DeleteModButton_clicked() {
+    auto res = serverHandler->deleteMod(currentServerId, currentMod->text().toUtf8().toStdString());
+    json response = json::parse(res.message);
+    if (res.status == 200) {
+        Mods::initModsData(currentServerId);
+        emit S_Infobar(this, response["message"], false);
+    } else {
+        emit S_Infobar(this, response["message"], true);
+    }
+}
+
+
+void Mods::on_SaveAndRestartButton_clicked() {
+    auto res = serverHandler->restartServer(currentServerId);
+    json response = json::parse(res.message);
+    if (res.status == 200) {
+        emit S_Infobar(this, response["message"], false);
+    } else {
+        emit S_Infobar(this, response["message"], true);
+    }
+}
+

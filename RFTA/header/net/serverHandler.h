@@ -70,6 +70,8 @@ public:
     Result loadJar(int serverId, QString filePath);
 
     Result loadZip(int serverId, QString filePath);
+
+    Result deleteMod(int serverId, std::string modName);
 };
 
 #endif // SERVERHANDLER_H

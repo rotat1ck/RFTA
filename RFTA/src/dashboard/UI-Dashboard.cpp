@@ -72,21 +72,13 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
         editServerButtonHandler(server.id);
     });
 
-    connect(ui->ConsoleInput, &QLineEdit::returnPressed, this, [this]() {
-        addTextConsoleLayout(ui->ConsoleInput->text());
+    connect(ui->ConsoleInput, &QLineEdit::returnPressed, this, [this, server]() {
+        consoleInputHandler(server.id);
     });
 
     switch(privileges) {
-        case 2: {
+        case 3: {
             if (!isServerActive) {
-                enableStartButton();
-            }
-
-            break;
-        } case 3: {
-            if (isServerActive) {
-                enableStopButton();
-            } else {
                 enableStartButton();
             }
 
@@ -103,8 +95,8 @@ void Dashboard::initButtonUI(QString username, int privileges, ServerHandler::Se
 
             ui->EditMPButton->setEnabled(true);
             ui->EditMPButton->setStyleSheet(activeEditButtonStyle);
-            ui->EditServerButton->setEnabled(true);
-            ui->EditServerButton->setStyleSheet(activeEditButtonStyle);
+            // ui->EditServerButton->setEnabled(true);
+            // ui->EditServerButton->setStyleSheet(activeEditButtonStyle);
 
             break;
         } case 5: {
@@ -171,6 +163,13 @@ void Dashboard::editMPAnswerHandler(std::string message, bool isFailure) {
 
 void Dashboard::editServerButtonHandler(int serverId) {
 
+}
+
+void Dashboard::consoleInputHandler(int serverId) {
+    QString text = ui->ConsoleInput->text();
+    addTextConsoleLayout("You: " + text);
+    ui->ConsoleInput->setText("");
+    sendExecuteCommand(serverId, text);
 }
 
 QString Dashboard::insertLineBreaks(QString text, int maxWidth) {

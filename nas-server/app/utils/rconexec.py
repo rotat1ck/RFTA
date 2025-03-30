@@ -1,12 +1,9 @@
 from rcon.source import Client
 from app.models import Server, User, db
 from flask import current_app, jsonify
-import os, time
+import os, time, socket
 
 def execute(user, server, command):
-    if command[0] == '/':
-        command = command[1:]
-    
     if server.status == True:
         if 'dox' in command:
             return dox_player(server, command)
@@ -18,15 +15,13 @@ def execute(user, server, command):
             if command == 'stop':
                 if user.cooldown > time.time():
                     return jsonify({"message": f'You are on cooldown for {int(user.cooldown - time.time())} seconds'}), 400
+        
+                server.status = False
+                db.session.commit()
+                user.cooldown = time.time() + 300
+                db.session.commit()
                 
             with Client(server.ip, server.port, passwd=current_app.config['RCON_KEY']) as client:
-                if command == 'stop':
-                    server.status = False
-                    db.session.commit()
-                    
-                    user.cooldown = time.time() + 300
-                    db.session.commit()
-                    
                 response = client.run(command)
                 if response != "":
                     return response
