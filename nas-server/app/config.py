@@ -13,4 +13,5 @@ def initConfig(app):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SERVERS_URI'] = getenv("SERVERS_URI")
     app.config['RCON_KEY'] = getenv("RCON_KEY")
+    app.config['INSTALLER_PATH'] = getenv("INSTALLER_PATH")
     db.init_app(app)
