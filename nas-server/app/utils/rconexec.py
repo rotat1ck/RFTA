@@ -1,7 +1,7 @@
 from rcon.source import Client
 from app.models import Server, User, db
 from flask import current_app, jsonify
-import os, time, socket
+import os, time, subprocess
 
 def execute(user, server, command):
     if server.status == True:
@@ -46,7 +46,7 @@ def start_server(user, server):
     try:
         serverDir = os.path.join(current_app.config['SERVERS_URI'], server.name.lower())
         os.chdir(serverDir)
-        os.startfile("run.bat")
+        subprocess.Popen(["/bin/bash", "run.sh"])
         
         server.status = True
         db.session.commit()

@@ -2,7 +2,7 @@
 
 bool ServerHandler::checkToken() {
     cl.set_default_headers({{"Authorization", "Bearer " + token}});
-    std::string endpoint = "api/users/healthcheck";
+    std::string endpoint = "/api/users/healthcheck";
 
     if (auto res = cl.Get(endpoint)) {
         if (res->status == 200) {
@@ -17,7 +17,7 @@ bool ServerHandler::checkToken() {
 
 ServerHandler::Result ServerHandler::executeCommand(int serverId, std::string command) {
     cl.set_default_headers({{"Authorization", "Bearer " + token}});
-    std::string endpoint = "api/controller/execute/" + std::to_string(serverId) + "?command=" + command;
+    std::string endpoint = "/api/controller/execute/" + std::to_string(serverId) + "?command=" + command;
     if (auto res = cl.Post(endpoint)) {
         return {res->status, res->body};
     } else {
@@ -28,7 +28,7 @@ ServerHandler::Result ServerHandler::executeCommand(int serverId, std::string co
 ServerHandler::Result ServerHandler::restartServer(int serverId) {
     cl.set_default_headers({{"Authorization", "Bearer " + token}});
 
-    std::string endpoint = "api/controller/restartserver/" + std::to_string(serverId);
+    std::string endpoint = "/api/controller/restartserver/" + std::to_string(serverId);
     if (auto res = cl.Post(endpoint)) {
         return {res->status, res->body};
     } else {
@@ -39,7 +39,7 @@ ServerHandler::Result ServerHandler::restartServer(int serverId) {
 ServerHandler::Result ServerHandler::getServers() {
     cl.set_default_headers({{"Authorization", "Bearer " + token}});
 
-    std::string endpoint = "api/servers/";
+    std::string endpoint = "/api/servers/";
     if (auto res = cl.Get(endpoint)) {
         return {res->status, res->body};
     } else {
@@ -50,7 +50,7 @@ ServerHandler::Result ServerHandler::getServers() {
 ServerHandler::Result ServerHandler::getServer(int serverId) {
     cl.set_default_headers({{"Authorization", "Bearer " + token}});
 
-    std::string endpoint = "api/servers/" + std::to_string(serverId);
+    std::string endpoint = "/api/servers/" + std::to_string(serverId);
     if (auto res = cl.Get(endpoint)) {
         return {res->status, res->body};
     } else {
@@ -61,7 +61,7 @@ ServerHandler::Result ServerHandler::getServer(int serverId) {
 ServerHandler::Result ServerHandler::getModPack(int serverId) {
     cl.set_default_headers({{"Authorization", "Bearer " + token}});
 
-    std::string endpoint = "api/servers/getmp/" + std::to_string(serverId);
+    std::string endpoint = "/api/servers/getmp/" + std::to_string(serverId);
     if (auto res = cl.Get(endpoint)) {
         return {res->status, res->body};
     } else {
@@ -71,7 +71,7 @@ ServerHandler::Result ServerHandler::getModPack(int serverId) {
 
 ServerHandler::Result ServerHandler::deleteMod(int serverId, std::string modName) {
     cl.set_default_headers({{"Authorization", "Bearer " + token}});
-    std::string endpoint = "api/controller/deletemod/" + std::to_string(serverId) + "?mod=" + modName;
+    std::string endpoint = "/api/controller/deletemod/" + std::to_string(serverId) + "?mod=" + modName;
     if (auto res = cl.Delete(endpoint)) {
         return {res->status, res->body};
     } else {
@@ -80,12 +80,12 @@ ServerHandler::Result ServerHandler::deleteMod(int serverId, std::string modName
 }
 
 ServerHandler::Result ServerHandler::loadJar(int serverId, QString filePath) {
-    loadMods(QUrl("https://77.37.246.6:7777/api/controller/loadjar/" + QString::number(serverId)), filePath, "mod");
+    loadMods(QUrl("https://rfta.rotatick.ru/api/controller/loadjar/" + QString::number(serverId)), filePath, "mod");
     return {0, ""};
 }
 
 ServerHandler::Result ServerHandler::loadZip(int serverId, QString filePath) {
-    loadMods(QUrl("https://77.37.246.6:7777/api/controller/loadzip/" + QString::number(serverId)), filePath, "zip");
+    loadMods(QUrl("https://rfta.rotatick.ru/api/controller/loadzip/" + QString::number(serverId)), filePath, "zip");
     return {0, ""};
 }
 
@@ -102,6 +102,7 @@ void ServerHandler::loadMods(QUrl url, QString filePath, QString modType) {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     QNetworkRequest request(url);
     request.setRawHeader("Authorization", ("Bearer " + QString::fromStdString(token)).toUtf8());
+    request.setRawHeader("Host", url.host().toUtf8());
     request.setTransferTimeout(3000);
 
     QHttpMultiPart* multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
@@ -127,7 +128,6 @@ void ServerHandler::loadMods(QUrl url, QString filePath, QString modType) {
             if (reply->error() == QNetworkReply::NoError) {
                 emit uploadFinished(true);
             } else {
-                qDebug() << "Upload error:" << reply->errorString(); // Log the error
                 emit uploadFinished(false);
             }
             manager->deleteLater();

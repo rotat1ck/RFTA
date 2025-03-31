@@ -27,9 +27,9 @@ signals:
 public:
     std::string token;
 
-    LoginHandler() : cl("https://77.37.246.6:7777") {
-        cl.enable_server_certificate_verification(false);
+    LoginHandler() : cl("https://rfta.rotatick.ru") {
         cl.set_connection_timeout(0, 500000);
+        cl.set_default_headers({{"Host", "rfta.rotatick.ru"}});
     }
 
     void loadData(QString usernameEntry, QString passwordEntry);

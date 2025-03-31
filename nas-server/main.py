@@ -6,10 +6,6 @@ app = startApp()
 
 with app.app_context():
     db.create_all()
-    
-current_dir = path.dirname(path.abspath(__file__))
-cert_file = path.join(current_dir, 'secret/cert.crt')
-key_file = path.join(current_dir, 'secret/key.key')
 
 if __name__ == '__main__':
-    app.run(ssl_context=(cert_file, key_file), host='0.0.0.0', port=7777, debug=True)
+    app.run()

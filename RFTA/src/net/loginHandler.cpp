@@ -6,7 +6,7 @@ void LoginHandler::loadData(QString usernameEntry, QString passwordEntry) {
 }
 
 bool LoginHandler::checkServerStatus() {
-    std::string endpoint = "api/users/healthcheck";
+    std::string endpoint = "/api/users/healthcheck";
 
     if (cl.Get(endpoint)) {
         return true;
@@ -16,7 +16,7 @@ bool LoginHandler::checkServerStatus() {
 }
 
 LoginHandler::Result LoginHandler::sendRequest() {
-    std::string endpoint = "api/users/login?" + username + "&" + password;
+    std::string endpoint = "/api/users/login?" + username + "&" + password;
 
     if (auto res = cl.Get(endpoint)) {
         if (res->status != 200) {

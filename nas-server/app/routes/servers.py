@@ -145,4 +145,5 @@ def getMp(user, serverId):
         return jsonify({"mods": ""}), 200
     
     mods = os.listdir(modsDir)
+    mods.sort(key=str.lower)
     return jsonify({"mods": mods}), 200
