@@ -132,6 +132,7 @@ void Mods::loadModList() {
 }
 
 void Mods::on_LoadJarButton_clicked() {
+    disconnect(serverHandler, &ServerHandler::uploadProgress, this, nullptr);
     QString fileName = QFileDialog::getOpenFileName(this, tr("Select .jar file"), "", tr("JAR Files (*.jar)"));
 
     connect(serverHandler, &ServerHandler::uploadProgress, this, [this](int progress) {
@@ -157,6 +158,7 @@ void Mods::on_LoadJarButton_clicked() {
 
 
 void Mods::on_LoadZipButton_clicked() {
+    disconnect(serverHandler, &ServerHandler::uploadProgress, this, nullptr);
     QString fileName = QFileDialog::getOpenFileName(this, tr("Select .zip archive"), "", tr("ZIP Archives (*.zip)"));
 
     connect(serverHandler, &ServerHandler::uploadProgress, this, [this](int progress) {
